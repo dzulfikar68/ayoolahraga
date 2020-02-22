@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:nestedScrollingEnabled="true"
+              android:scrollbars="none"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:background="@android:color/white"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              tools:context=".main.HomeFragment">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"
+                  android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                                           android:layout_height="wrap_content"
+                                           android:foreground="?android:attr/selectableItemBackground"
+                                           android:clickable="true"
+                                           android:id="@+id/cv_name"
+                                           android:layout_marginBottom="20dp"
+                                           android:layout_marginRight="5dp"
+                                           android:layout_marginLeft="5dp"
+                                           android:layout_marginTop="5dp"
+                                           app:cardBackgroundColor="@android:color/white"
+                                           app:cardCornerRadius="5dp">
+            <LinearLayout android:padding="10dp" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="15sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/selamat_datang"/>
+                <TextView android:textSize="15sp" android:textColor="@android:color/black" android:textStyle="bold" android:id="@+id/tv_name_user" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/name_user"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView android:textColor="@android:color/black" android:id="@+id/tv_sport_type" android:layout_marginBottom="5dp" android:textStyle="bold" android:textSize="17sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sport_type"/>
+        <ProgressBar android:id="@+id/pb_sport_type" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_type_sport" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="20dp"/>
+
+        <TextView android:textColor="@android:color/black" android:id="@+id/tv_list_community" android:layout_marginBottom="5dp" android:textStyle="bold" android:textSize="17sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/list_community"/>
+        <ProgressBar android:id="@+id/pb_list_community" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_list_community" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="20dp"/>
+
+        <TextView android:textColor="@android:color/black" android:id="@+id/tv_blog_news" android:layout_marginBottom="5dp" android:textStyle="bold" android:textSize="17sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/blog_news"/>
+        <ProgressBar android:id="@+id/pb_blog_news" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView android:orientation="horizontal" android:id="@+id/rv_blog" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

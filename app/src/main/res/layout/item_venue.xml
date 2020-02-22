@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   android:foreground="?android:attr/selectableItemBackground"
+                                   android:clickable="true"
+                                   android:layout_margin="5dp"
+                                   app:cardBackgroundColor="@android:color/white"
+                                   app:cardCornerRadius="5dp">
+
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <ImageView android:layout_width="match_parent" android:layout_height="75dp"
+                   android:id="@+id/iv_image_venue"
+                   android:scaleType="centerCrop"
+                   android:src="@drawable/ayoolahraga_placeholder"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/tv_title_venue"
+                  android:textStyle="bold"
+                  android:maxLines="1"
+                  android:ellipsize="end"
+                  android:layout_marginTop="5dp"
+                  android:layout_marginLeft="5dp"
+                  android:layout_marginRight="5dp"
+                  android:text="@string/title_venue"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/tv_address_venue"
+                  android:maxLines="1"
+                  android:ellipsize="end"
+                  android:layout_marginBottom="5dp"
+                  android:layout_marginLeft="5dp"
+                  android:layout_marginRight="5dp"
+                  android:text="@string/address_venue"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

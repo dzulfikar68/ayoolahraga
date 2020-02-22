@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:gravity="center_vertical"
+              android:padding="10dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:layout_gravity="center"
+            android:id="@+id/rb_rate_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:rating="4"
+            app:mrb_indeterminateTint="@android:color/darker_gray"
+            app:mrb_progressBackgroundTintMode="multiply"
+            app:mrb_progressTint="@android:color/holo_orange_light"
+            app:mrb_fillBackgroundStars="true"
+            style="@style/Widget.MaterialRatingBar.RatingBar" />
+
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:id="@+id/et_comment_rating"
+              android:hint="comment"
+              android:inputType="text"/>
+
+    <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="give rate"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/btn_add_rating"/>
+
+</LinearLayout>

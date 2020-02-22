@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:background="@android:color/white"
+              android:layout_height="match_parent"
+              tools:context=".main.AccountFragment">
+
+    <TableLayout android:layout_marginTop="20dp" android:layout_marginBottom="10dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
+            <RelativeLayout android:layout_width="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_height="wrap_content"
+                            android:padding="15dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="30dp"
+                            android:background="@drawable/bg_circle">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="@string/ab"
+                          android:id="@+id/tv_image_user"
+                          android:layout_centerInParent="true"
+                          android:textColor="@android:color/white"
+                          android:textSize="30sp"/>
+            </RelativeLayout>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:gravity="center_vertical"
+                          android:layout_weight="3">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:textStyle="bold"
+                          android:textColor="@android:color/black"
+                          android:text="@string/name"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_name_user"
+                          android:textColor="@android:color/black"
+                          android:layout_marginBottom="10dp"
+                          android:text="@string/name_user"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:textStyle="bold"
+                          android:textColor="@android:color/black"
+                          android:text="@string/phone"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tv_phone_user"
+                          android:textColor="@android:color/black"
+                          android:layout_marginBottom="10dp"
+                          android:text="@string/phone_user"/>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:textColor="@android:color/black"
+              android:layout_marginStart="20dp"
+              android:text="@string/email"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:id="@+id/tv_email_user"
+              android:textStyle="italic"
+              android:textColor="@android:color/black"
+              android:layout_marginStart="20dp"
+              android:layout_marginBottom="10dp"
+              android:text="@string/email_user"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:textColor="@android:color/black"
+              android:layout_marginStart="20dp"
+              android:text="@string/address"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:id="@+id/tv_address_user"
+              android:textColor="@android:color/black"
+              android:layout_marginStart="20dp"
+              android:layout_marginBottom="10dp"
+              android:text="@string/address_user"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:textColor="@android:color/black"
+              android:layout_marginStart="20dp"
+              android:text="@string/hoby"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:id="@+id/tv_hoby_user"
+              android:textColor="@android:color/black"
+              android:layout_marginStart="20dp"
+              android:layout_marginBottom="10dp"
+              android:text="@string/hoby_user"/>
+
+    <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:id="@+id/btn_edit_profile"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:text="@string/edit_profile"/>
+
+    <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:id="@+id/btn_logout"
+            android:text="@string/logout"/>
+
+</LinearLayout>

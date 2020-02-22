@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:gravity="center" android:right="10dp">
+
+        <bitmap
+                android:gravity="fill_horizontal|fill_vertical"
+                android:src="@drawable/ayoolahraga_logo"/>
+
+    </item>
+
+</layer-list>

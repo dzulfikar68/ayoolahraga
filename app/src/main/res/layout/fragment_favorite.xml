@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingStart="20dp"
+              android:background="@android:color/white"
+              android:paddingEnd="20dp"
+              tools:context=".main.FavoriteFragment">
+
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_favorite_venue" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <TextView android:layout_marginTop="200dp" android:visibility="gone" android:id="@+id/tv_not_found" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/data_tidak_tersedia" android:gravity="center"/>
+
+</LinearLayout>

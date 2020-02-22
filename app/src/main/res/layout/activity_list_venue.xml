@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@android:color/white"
+              android:paddingRight="20dp"
+              android:paddingLeft="20dp"
+              tools:context=".main.venue.ListVenueActivity">
+
+    <LinearLayout android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <EditText android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content"
+                  android:id="@+id/et_search_venue"
+                  android:inputType="text"
+                  android:hint="@string/search"/>
+        <ImageButton android:layout_width="35dp" android:layout_height="40dp"
+                     android:src="@drawable/ic_search_white_24dp"
+                     style="@style/Widget.AppCompat.Button.Colored"
+                     android:id="@+id/btn_search_venue"/>
+    </LinearLayout>
+
+    <ProgressBar android:id="@+id/pb_list_venue" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_venue_sport" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="20dp"/>
+    <TextView android:layout_marginTop="200dp" android:visibility="gone" android:id="@+id/tv_not_found" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/data_tidak_tersedia" android:gravity="center"/>
+
+</LinearLayout>

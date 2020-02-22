@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">Ayoolahraga</string>
+    <string name="title_home">Home</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="title_account">Account</string>
+    <string name="title_setting">Setting</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_community">title community</string>
+    <string name="description_community">description community</string>
+    <string name="tempat_latihan">training ground</string>
+    <string name="title_venue">title venue</string>
+    <string name="address_venue">address venue</string>
+    <string name="contact">contact</string>
+    <string name="email_community">email community</string>
+    <string name="phone_community">phone community</string>
+    <string name="chat_number">chat number</string>
+    <string name="social_media">social media</string>
+    <string name="description_venue">description venue</string>
+    <string name="facility">facility</string>
+    <string name="operational">operational</string>
+    <string name="peringkat_dan_ulasan">ratings and reviews</string>
+    <string name="name">name</string>
+    <string name="message">message</string>
+    <string name="last_comment">last comment</string>
+    <string name="alamat">address</string>
+    <string name="email_venue">email venue</string>
+    <string name="phone_venue">phone venue</string>
+    <string name="send_email">send email</string>
+    <string name="ab">AB</string>
+    <string name="name_c">Name</string>
+    <string name="address_c">Address</string>
+    <string name="address">address</string>
+    <string name="phone">phone</string>
+    <string name="hoby_c">Hobby</string>
+    <string name="hoby">hobby</string>
+    <string name="edit_profile">edit profile</string>
+    <string name="search">search</string>
+    <string name="data_tidak_tersedia">data not available</string>
+    <string name="name_user">name user</string>
+    <string name="phone_user">phone user</string>
+    <string name="email">email</string>
+    <string name="email_user">email user</string>
+    <string name="address_user">address user</string>
+    <string name="hoby_user">hobby user</string>
+    <string name="logout">logout</string>
+    <string name="selamat_datang">Welcome</string>
+    <string name="sport_type">Sport Type</string>
+    <string name="list_community">List Community</string>
+    <string name="blog_news">Blog News</string>
+    <string name="login">Login</string>
+    <string name="email_c">Email</string>
+    <string name="password_c">Password</string>
+    <string name="password">password</string>
+    <string name="login_l">login</string>
+    <string name="register_c">Register</string>
+    <string name="password_confirmation_c">Password Confirmation</string>
+    <string name="birth_c">Birth</string>
+    <string name="phone_c">Phone</string>
+    <string name="register">register</string>
+    <string name="language">language</string>
+    <string name="tutorial">tutorial</string>
+    <string name="dont_have_any_account_click_to_register">DONT HAVE ANY ACCOUNT, CLICK TO REGISTER</string>
+    <string name="back_to_login">back to login</string>
+    <string name="ke_tutorial">To Tutorial</string>
+    <string name="about_description">Ayoolahraga is an application that is useful for finding sports fields and sports
+        communities in Indonesia, along with descriptions, operational hours, contact info, and others. This application
+        is protected by copyright property of sportunys.com
+    </string>
+</resources>
