@@ -11,7 +11,7 @@ public class Blog implements Parcelable {
 
     public Blog() {}
 
-    protected Blog(Parcel in) {
+    private Blog(Parcel in) {
         id_blog = in.readInt();
         title = in.readString();
         image = in.readString();

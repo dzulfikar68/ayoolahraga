@@ -1,13 +1,15 @@
 package com.digitcreativestudio.ayoolahraga.adapter;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.model.Blog;
@@ -43,7 +45,6 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.ItemViewHolder
         Glide.with(context)
                 .load(getList().get(i).getImage())
                 .placeholder(context.getDrawable(R.drawable.ayoolahraga_placeholder))
-//                .apply(new RequestOptions().override(350, 550))
                 .into(movieViewHolder.imageType);
 
         movieViewHolder.titleType.setText(getList().get(i).getTitle());

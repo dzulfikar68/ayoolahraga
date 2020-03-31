@@ -7,10 +7,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
 import com.google.android.gms.maps.SupportMapFragment;
 
 public class WorkaroundMapFragment extends SupportMapFragment {
     private OnTouchListener mListener;
+
+    public WorkaroundMapFragment(OnTouchListener mListener) {
+        this.mListener = mListener;
+    }
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstance) {
@@ -20,18 +25,15 @@ public class WorkaroundMapFragment extends SupportMapFragment {
 
         frameLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
+        assert layout != null;
         ((ViewGroup) layout).addView(frameLayout,
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         return layout;
     }
 
-    public void setListener(OnTouchListener listener) {
-        mListener = listener;
-    }
-
     public interface OnTouchListener {
-        public abstract void onTouch();
+        void onTouch();
     }
 
     public class TouchableWrapper extends FrameLayout {
@@ -44,8 +46,6 @@ public class WorkaroundMapFragment extends SupportMapFragment {
         public boolean dispatchTouchEvent(MotionEvent event) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    mListener.onTouch();
-                    break;
                 case MotionEvent.ACTION_UP:
                     mListener.onTouch();
                     break;

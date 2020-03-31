@@ -1,24 +1,32 @@
 package com.digitcreativestudio.ayoolahraga.main.venue;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.*;
+
 import com.digitcreativestudio.ayoolahraga.R;
-import com.digitcreativestudio.ayoolahraga.adapter.*;
+import com.digitcreativestudio.ayoolahraga.adapter.FacilityAdapter;
+import com.digitcreativestudio.ayoolahraga.adapter.MainSliderAdapter;
+import com.digitcreativestudio.ayoolahraga.adapter.OperationalAdapter;
 import com.digitcreativestudio.ayoolahraga.model.Image;
 import com.digitcreativestudio.ayoolahraga.model.Operational;
 import com.digitcreativestudio.ayoolahraga.model.Rating;
@@ -34,14 +42,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ss.com.bannerslider.Slider;
-
-import java.util.ArrayList;
 
 import static com.digitcreativestudio.ayoolahraga.utils.Constant.BASE_URL;
 
@@ -50,7 +63,6 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
     private Venue venue;
     private ClientServices services;
     public static String EXTRA_INTENT = "EXTRA_INTENT_DETAIL";
-    private RecyclerView rvFacility, rvOperational;
     private CardView cvRating;
     private TextView tvTitle, tvDescription, tvAddress, tvNameComment, tvMessageComment, tvEmail, tvPhone;
     private FacilityAdapter adapterFacility;
@@ -61,7 +73,6 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
     private FloatingActionButton fabFavorite;
     private Slider sliderPhoto;
     private RatingBar ratingVenue, ratingComment;
-    private GoogleMap mapDetail;
     private LinearLayout llLastComment;
 
     @Override
@@ -88,16 +99,16 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
         llLastComment = findViewById(R.id.ll_last_comment);
 
         LinearLayoutManager layoutManagerHorizontal = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-        adapterFacility = new FacilityAdapter(getApplicationContext());
+        adapterFacility = new FacilityAdapter();
         adapterFacility.setList(listFacility);
-        rvFacility = findViewById(R.id.rv_facility_venue);
+        RecyclerView rvFacility = findViewById(R.id.rv_facility_venue);
         rvFacility.setHasFixedSize(true);
         rvFacility.setLayoutManager(layoutManagerHorizontal);
         rvFacility.setAdapter(adapterFacility);
 
-        adapterOperational = new OperationalAdapter(getApplicationContext());
+        adapterOperational = new OperationalAdapter();
         adapterOperational.setList(listOperational);
-        rvOperational = findViewById(R.id.rv_operational_venue);
+        RecyclerView rvOperational = findViewById(R.id.rv_operational_venue);
         rvOperational.setHasFixedSize(true);
         rvOperational.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         rvOperational.setAdapter(adapterOperational);
@@ -138,8 +149,9 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
         Call<DetailVenueResponse> request = services.detailVenueGET(Integer.toString(venue.getId_venue()));
         request.enqueue(new Callback<DetailVenueResponse>() {
             @Override
-            public void onResponse(Call<DetailVenueResponse> call, Response<DetailVenueResponse> response) {
+            public void onResponse(@NotNull Call<DetailVenueResponse> call, @NotNull Response<DetailVenueResponse> response) {
                 try{
+                    assert response.body() != null;
                     final Venue venueDetail = response.body().getData();
                     venue = venueDetail;
                     tvTitle.setText(venueDetail.getName_venue());
@@ -176,39 +188,22 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
                     tvPhone.setText(venueDetail.getPhone_user());
 
 //                final ArrayList<Rating> listRating = venueDetail.getRating();
-                    cvRating.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent moveWithObjectIntent = new Intent(getApplicationContext(), RatingActivity.class);
-                            moveWithObjectIntent.putExtra(RatingActivity.EXTRA_INTENT, venueDetail);
-//                        moveWithObjectIntent.putParcelableArrayListExtra(RatingActivity.EXTRA_INTENT, listRating);
-                            startActivity(moveWithObjectIntent);
-                        }
+                    cvRating.setOnClickListener(v -> {
+                        Intent moveWithObjectIntent = new Intent(getApplicationContext(), RatingActivity.class);
+                        moveWithObjectIntent.putExtra(RatingActivity.EXTRA_INTENT, venueDetail);
+                        startActivity(moveWithObjectIntent);
                     });
 
                     Button btnPhone = findViewById(R.id.btn_telp);
                     Button btnEmail = findViewById(R.id.btn_email);
 
-                    btnPhone.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            openWhatsApp(venueDetail.getPhone_user());
-                        }
-                    });
-                    btnEmail.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            sendEmail(venueDetail.getEmail_user());
-                        }
-                    });
+                    btnPhone.setOnClickListener(v -> openWhatsApp(venueDetail.getPhone_user()));
+                    btnEmail.setOnClickListener(v -> sendEmail(venueDetail.getEmail_user()));
 
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.g_map_detil);
+                    assert mapFragment != null;
                     mapFragment.getMapAsync(DetailVenueActivity.this);
-
-//                ScrollView sv = findViewById(R.id.sv_detail);
-//                sv.scrollTo(-1000, -1000);
-
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -217,14 +212,14 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
             }
 
             @Override
-            public void onFailure(Call<DetailVenueResponse> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "Get Detail Venue Failed", Toast.LENGTH_LONG).show();
-                Log.e("ERROR: ", t.getMessage());
+            public void onFailure(@NotNull Call<DetailVenueResponse> call, @NotNull Throwable t) {
+                Log.e("ERROR: ", Objects.requireNonNull(t.getMessage()));
                 dialog.dismiss();
             }
         });
     }
 
+    @SuppressLint("IntentReset")
     private void sendEmail(String emailAddress) {
         String[] TO = {emailAddress};
         String[] CC = {""};
@@ -285,25 +280,20 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
             fabFavorite.setImageDrawable( getResources().getDrawable(R.drawable.ic_favorite_border_white_24dp) );
         }
 
-        fabFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!db.existCheck(venue.getId_venue())){
-                    db.insertVenue(
-                            venue.getId_venue(),
-                            venue.getName_venue(),
-                            photo,
-                            venue.getAddress_venue()
-                    );
-//                    Toast.makeText(getApplicationContext(), "Favorite: "+venue.getName_venue(), Toast.LENGTH_LONG).show();
-                    fabFavorite.setImageDrawable( getResources().getDrawable(R.drawable.ic_favorite_white_24dp) );
-                } else {
-                    db.deleteVenue(
-                            venue
-                    );
-//                    Toast.makeText(getApplicationContext(), "Un-Favorite: "+venue.getName_venue(), Toast.LENGTH_LONG).show();
-                    fabFavorite.setImageDrawable( getResources().getDrawable(R.drawable.ic_favorite_border_white_24dp) );
-                }
+        fabFavorite.setOnClickListener(v -> {
+            if (!db.existCheck(venue.getId_venue())) {
+                db.insertVenue(
+                        venue.getId_venue(),
+                        venue.getName_venue(),
+                        photo,
+                        venue.getAddress_venue()
+                );
+                fabFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_white_24dp));
+            } else {
+                db.deleteVenue(
+                        venue
+                );
+                fabFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite_border_white_24dp));
             }
         });
     }
@@ -311,19 +301,13 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         try{
-            mapDetail = googleMap;
 
             //seattle coordinates
             LatLng point = new LatLng(Double.valueOf(venue.getLatitude()), Double.valueOf(venue.getLongitude()));
 
-//            BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_icon_map_v9);
-            mapDetail.addMarker(new MarkerOptions().position(point).title(venue.getAddress_venue()));
-            mapDetail.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17.5f));
-            mapDetail.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-
-//            scrollview_detail_property = findViewById(R.id.scrollview_detail_property);
-//            scrollview_detail_property.scrollTo(5, 10);
-            //            scrollview_detail_property.scrollTo(0, scrollview_detail_property.getBottom());
+            googleMap.addMarker(new MarkerOptions().position(point).title(venue.getAddress_venue()));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17.5f));
+            googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         } catch (Exception e){
             Log.e("ERROR:", e.toString());
             e.printStackTrace();

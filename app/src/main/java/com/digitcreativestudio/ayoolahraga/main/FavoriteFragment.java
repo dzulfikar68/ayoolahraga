@@ -3,23 +3,25 @@ package com.digitcreativestudio.ayoolahraga.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.adapter.VenueAdapter;
 import com.digitcreativestudio.ayoolahraga.main.venue.DetailVenueActivity;
 import com.digitcreativestudio.ayoolahraga.model.Venue;
-import com.digitcreativestudio.ayoolahraga.network.ClientServices;
 import com.digitcreativestudio.ayoolahraga.utils.DatabaseHelper;
 import com.digitcreativestudio.ayoolahraga.utils.ItemClickSupport;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 /**
@@ -27,8 +29,6 @@ import java.util.ArrayList;
  */
 public class FavoriteFragment extends Fragment {
 
-    private ClientServices services;
-    private RecyclerView recyclerView;
     private VenueAdapter adapter;
     private ArrayList<Venue> list = new ArrayList<>();
 
@@ -50,7 +50,7 @@ public class FavoriteFragment extends Fragment {
         adapter = new VenueAdapter(getActivity());
         adapter.setList(list);
 
-        recyclerView = view.findViewById(R.id.rv_favorite_venue);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_favorite_venue);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         recyclerView.setAdapter(adapter);
@@ -58,13 +58,10 @@ public class FavoriteFragment extends Fragment {
         //TODO: get favorite list
         getListFavorite();
 
-        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View view) {
-                Intent moveWithObjectIntent = new Intent(getActivity(), DetailVenueActivity.class);
-                moveWithObjectIntent.putExtra(DetailVenueActivity.EXTRA_INTENT, list.get(position));
-                startActivity(moveWithObjectIntent);
-            }
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener((recyclerView1, position, view1) -> {
+            Intent moveWithObjectIntent = new Intent(getActivity(), DetailVenueActivity.class);
+            moveWithObjectIntent.putExtra(DetailVenueActivity.EXTRA_INTENT, list.get(position));
+            startActivity(moveWithObjectIntent);
         });
     }
 
@@ -79,6 +76,7 @@ public class FavoriteFragment extends Fragment {
         list.clear();
         list.addAll(db.getAllVenue());
         adapter.notifyDataSetChanged();
-        if (list.isEmpty()) getView().findViewById(R.id.tv_not_found).setVisibility(View.VISIBLE);
+        if (list.isEmpty())
+            Objects.requireNonNull(getView()).findViewById(R.id.tv_not_found).setVisibility(View.VISIBLE);
     }
 }

@@ -17,7 +17,7 @@ public class Community implements Parcelable {
     private List<Operational> operational;
     private ArrayList<Image> image;
 
-    protected Community(Parcel in) {
+    private Community(Parcel in) {
         id_community = in.readInt();
         id_venue = in.readInt();
         name_community = in.readString();

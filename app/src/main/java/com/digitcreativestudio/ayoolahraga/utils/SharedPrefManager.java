@@ -1,7 +1,9 @@
 package com.digitcreativestudio.ayoolahraga.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.digitcreativestudio.ayoolahraga.model.User;
 
 public class SharedPrefManager {
@@ -14,7 +16,9 @@ public class SharedPrefManager {
     public static final String KEY_PHONE = "phone_user";
     public static final String KEY_HOBY = "hoby_user";
     private static final String KEY_BIRTH = "birth_user";
+    @SuppressLint("StaticFieldLeak")
     private static SharedPrefManager mInstance;
+    @SuppressLint("StaticFieldLeak")
     private static Context mContext;
 
     private SharedPrefManager(Context context) {

@@ -1,5 +1,6 @@
 package com.digitcreativestudio.ayoolahraga.utils;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,6 +8,7 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
 import com.digitcreativestudio.ayoolahraga.model.Venue;
 
 import java.util.ArrayList;
@@ -18,17 +20,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Name
     private static final String DATABASE_NAME = "ayoolahraga_db";
-    private Context context;
 
-    public static final String TABLE_NAME = "venue";
-    public static final String COLUMN_ID = "id";
-    public static final String COLUMN_TITLE = "title";
-    public static final String COLUMN_IMAGE = "image";
-    public static final String COLUMN_ADDRESS = "address";
-    public static final String COLUMN_TIMESTAMP = "timestamp";
+    private static final String TABLE_NAME = "venue";
+    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_TITLE = "title";
+    private static final String COLUMN_IMAGE = "image";
+    private static final String COLUMN_ADDRESS = "address";
+    private static final String COLUMN_TIMESTAMP = "timestamp";
 
     // Create table SQL query
-    public static final String CREATE_TABLE =
+    private static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + COLUMN_TITLE + " TEXT,"
@@ -40,7 +41,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.context = context;
     }
 
     // Creating Tables
@@ -61,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertVenue(int id,
+    public void insertVenue(int id,
                             String title,
                             String image,
                             String address) {
@@ -77,13 +77,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_ADDRESS, address);
 
         // insert row
-        long id_new = db.insert(TABLE_NAME, null, values);
+        db.insert(TABLE_NAME, null, values);
 
         // close db connection
         db.close();
-
-        // return newly inserted row id
-        return id_new;
     }
 
     public void deleteVenue(Venue venue) {
@@ -101,7 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //                " WHERE "+ COLUMN_TYPE + " = ?";
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -143,6 +140,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         try {
             Venue data = new Venue();
+            assert cursor != null;
             data.setId_venue(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
 
             if(data.getId_venue() == id){
@@ -154,6 +152,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.e("TIDAK ADA", e.toString());
         }
 
+        assert cursor != null;
         cursor.close();
         return result;
     }

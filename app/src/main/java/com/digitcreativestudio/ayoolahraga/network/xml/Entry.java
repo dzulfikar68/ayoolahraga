@@ -1,6 +1,7 @@
 package com.digitcreativestudio.ayoolahraga.network.xml;
 
 import com.digitcreativestudio.ayoolahraga.network.xml.entry.Category;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 
@@ -32,16 +33,13 @@ public class Entry {
         return category;
     }
 
-    //    @ElementList(name = "title", inline = true, required = false)
     @Element(required = false)
-//    @Namespace(reference = "http://www.w3.org/2005/Atom")
     private String title;
 
     public String getTitle() {
         return title;
     }
 
-//    @ElementList(inline = true, required = false)
     @Element(required = false)
     private String summary;
 
