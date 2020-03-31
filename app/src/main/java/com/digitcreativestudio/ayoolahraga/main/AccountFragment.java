@@ -1,23 +1,26 @@
 package com.digitcreativestudio.ayoolahraga.main;
 
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.SplashActivity;
 import com.digitcreativestudio.ayoolahraga.main.account.EditAccountActivity;
 import com.digitcreativestudio.ayoolahraga.utils.SharedPrefManager;
+
+import java.util.Objects;
 
 
 /**
@@ -25,7 +28,7 @@ import com.digitcreativestudio.ayoolahraga.utils.SharedPrefManager;
  */
 public class AccountFragment extends Fragment {
 
-    TextView tvName,
+    private TextView tvName,
              tvPhone,
              tvEmail,
              tvAddress,
@@ -55,41 +58,31 @@ public class AccountFragment extends Fragment {
         tvImage = view.findViewById(R.id.tv_image_user);
 
         Button btnEditProfile = view.findViewById(R.id.btn_edit_profile);
-        btnEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveWithObjectIntent = new Intent(getActivity(), EditAccountActivity.class);
-                startActivity(moveWithObjectIntent);
-            }
+        btnEditProfile.setOnClickListener(v -> {
+            Intent moveWithObjectIntent = new Intent(getActivity(), EditAccountActivity.class);
+            startActivity(moveWithObjectIntent);
         });
 
         Button btnLogout = view.findViewById(R.id.btn_logout);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("Logout");
-                builder.setMessage("Are you sure?");
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        SharedPrefManager.getInstance(getActivity())
-                                .logout();
+        btnLogout.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+            builder.setTitle("Logout");
+            builder.setMessage("Are you sure?");
+            builder.setPositiveButton("OK", (dialog, id) -> {
+                SharedPrefManager.getInstance(getActivity())
+                        .logout();
 
-                        Toast.makeText(getActivity(), "Logout Berhasil", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Logout Berhasil", Toast.LENGTH_LONG).show();
 
-                        Intent intent = new Intent(getActivity(), SplashActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(getActivity(), SplashActivity.class);
+                startActivity(intent);
+                Objects.requireNonNull(getActivity()).finish();
+            });
+            builder.setNegativeButton("Cancel", (dialog, id) -> {
 
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
     }
 
@@ -108,7 +101,7 @@ public class AccountFragment extends Fragment {
         tvHoby.setText(preference.getStringPref(SharedPrefManager.KEY_HOBY));
 
         String text = preference.getStringPref(SharedPrefManager.KEY_NAME).toUpperCase();
-        String finaly = String.valueOf(text.charAt(0)) + String.valueOf(text.charAt(1));
+        String finaly = String.valueOf(text.charAt(0)) + text.charAt(1);
         tvImage.setText(finaly);
     }
 }

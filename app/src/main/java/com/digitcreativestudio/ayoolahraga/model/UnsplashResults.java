@@ -6,7 +6,7 @@ import android.os.Parcelable;
 public class UnsplashResults implements Parcelable {
     private UnsplashUrls urls;
 
-    protected UnsplashResults(Parcel in) {
+    private UnsplashResults(Parcel in) {
         urls = in.readParcelable(UnsplashUrls.class.getClassLoader());
     }
 

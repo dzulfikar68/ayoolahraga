@@ -6,9 +6,7 @@ import android.os.Parcelable;
 public class Rating implements Parcelable {
     private String name_user, score, message;
 
-    public Rating() {}
-
-    protected Rating(Parcel in) {
+    private Rating(Parcel in) {
         name_user = in.readString();
         score = in.readString();
         message = in.readString();

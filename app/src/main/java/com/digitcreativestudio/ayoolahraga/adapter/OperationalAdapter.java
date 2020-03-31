@@ -1,12 +1,13 @@
 package com.digitcreativestudio.ayoolahraga.adapter;
 
-import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.model.Operational;
 
@@ -14,12 +15,7 @@ import java.util.ArrayList;
 
 public class OperationalAdapter extends RecyclerView.Adapter<OperationalAdapter.ItemViewHolder> {
 
-    private Context context;
     private ArrayList<Operational> list;
-
-    public OperationalAdapter(Context context) {
-        this.context = context;
-    }
 
     public ArrayList<Operational> getList() {
         return list;

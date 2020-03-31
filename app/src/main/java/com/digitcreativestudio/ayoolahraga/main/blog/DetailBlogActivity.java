@@ -1,21 +1,22 @@
 package com.digitcreativestudio.ayoolahraga.main.blog;
 
 import android.annotation.SuppressLint;
-import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.model.Blog;
 
 public class DetailBlogActivity extends AppCompatActivity {
 
     public static String EXTRA_INTENT = "EXTRA_INTENT_BLOG";
-    private WebView webView;
     private Blog blog;
 
     @Override
@@ -35,20 +36,15 @@ public class DetailBlogActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("JavascriptInterface")
+    @SuppressLint({"JavascriptInterface", "SetJavaScriptEnabled"})
     private void loadWebView(){
         final ProgressBar pgBlogView = findViewById(R.id.pb_blog_view);
         pgBlogView.setVisibility(View.VISIBLE);
 
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pgBlogView.setVisibility(View.GONE);
-            }
-        }, 3000);
+        handler.postDelayed(() -> pgBlogView.setVisibility(View.GONE), 3000);
 
-        webView = findViewById(R.id.wv_blog);
+        WebView webView = findViewById(R.id.wv_blog);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -64,7 +60,6 @@ public class DetailBlogActivity extends AppCompatActivity {
                 pgBlogView.setVisibility(View.GONE);
             }
         });
-//            webView.addJavascriptInterface(this, "Android");
         webView.loadUrl(blog.getLink());
     }
 

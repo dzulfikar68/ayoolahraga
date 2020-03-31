@@ -3,18 +3,23 @@ package com.digitcreativestudio.ayoolahraga.main.community;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.adapter.MainSliderAdapter;
@@ -29,14 +34,18 @@ import com.digitcreativestudio.ayoolahraga.network.DetailCommunityResponse;
 import com.digitcreativestudio.ayoolahraga.network.DetailVenueResponse;
 import com.digitcreativestudio.ayoolahraga.utils.GlideImageLoadingService;
 import com.digitcreativestudio.ayoolahraga.utils.SharedPrefManager;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ss.com.bannerslider.Slider;
-
-import java.util.ArrayList;
 
 import static com.digitcreativestudio.ayoolahraga.utils.Constant.BASE_URL;
 
@@ -45,11 +54,10 @@ public class DetailCommunityActivity extends AppCompatActivity {
     private Community community;
     private ClientServices services;
     public static String EXTRA_INTENT = "EXTRA_INTENT_DETAIL_C";
-    private RecyclerView rvOperational;
     private CardView cvVenue;
-    private TextView tvTitle, tvDescription, tvEmail, tvPhone;
+    public ArrayList<String> listFacility = new ArrayList<>();
     private OperationalAdapter adapterOperational;
-    private ArrayList<String> listFacility = new ArrayList<>();
+    private TextView tvTitle, tvDescription;
     private ArrayList<Operational> listOperational = new ArrayList<>();
     private Slider sliderPhoto;
     private LinearLayout llVenue;
@@ -66,15 +74,13 @@ public class DetailCommunityActivity extends AppCompatActivity {
 
         tvTitle = findViewById(R.id.tv_title_community);
         tvDescription = findViewById(R.id.tv_description_community);
-        tvEmail = findViewById(R.id.tv_email_community);
-        tvPhone = findViewById(R.id.tv_phone_community);
         sliderPhoto = findViewById(R.id.iv_image_community);
         cvVenue = findViewById(R.id.cv_venue);
         llVenue = findViewById(R.id.ll_venue);
 
-        adapterOperational = new OperationalAdapter(getApplicationContext());
+        adapterOperational = new OperationalAdapter();
         adapterOperational.setList(listOperational);
-        rvOperational = findViewById(R.id.rv_operational_community);
+        RecyclerView rvOperational = findViewById(R.id.rv_operational_community);
         rvOperational.setHasFixedSize(true);
         rvOperational.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         rvOperational.setAdapter(adapterOperational);
@@ -106,7 +112,8 @@ public class DetailCommunityActivity extends AppCompatActivity {
         Call<DetailCommunityResponse> request = services.detailCommunityGET(Integer.toString(community.getId_community()));
         request.enqueue(new Callback<DetailCommunityResponse>() {
             @Override
-            public void onResponse(Call<DetailCommunityResponse> call, Response<DetailCommunityResponse> response) {
+            public void onResponse(@NotNull Call<DetailCommunityResponse> call, @NotNull Response<DetailCommunityResponse> response) {
+                assert response.body() != null;
                 final Community communityDetail = response.body().getData();
                 tvTitle.setText(communityDetail.getName_community());
                 tvDescription.setText(communityDetail.getDescription_community());
@@ -133,20 +140,12 @@ public class DetailCommunityActivity extends AppCompatActivity {
                 Button btnPhone = findViewById(R.id.btn_telp);
                 Button btnEmail = findViewById(R.id.btn_email);
 
-                btnPhone.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openWhatsApp(communityDetail.getContact_community());
-                    }
-                });
-                btnEmail.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(communityDetail.getMedsos_community()!=null &&
-                                (communityDetail.getMedsos_community().contains("http://") ||
-                                        communityDetail.getMedsos_community().contains("https://"))) {
-                            goToUrl(communityDetail.getMedsos_community());
-                        }
+                btnPhone.setOnClickListener(v -> openWhatsApp(communityDetail.getContact_community()));
+                btnEmail.setOnClickListener(v -> {
+                    if (communityDetail.getMedsos_community() != null &&
+                            (communityDetail.getMedsos_community().contains("http://") ||
+                                    communityDetail.getMedsos_community().contains("https://"))) {
+                        goToUrl(communityDetail.getMedsos_community());
                     }
                 });
 
@@ -154,9 +153,8 @@ public class DetailCommunityActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<DetailCommunityResponse> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "Get Community Venue Failed", Toast.LENGTH_LONG).show();
-                Log.e("ERROR: ", t.getMessage());
+            public void onFailure(@NotNull Call<DetailCommunityResponse> call, @NotNull Throwable t) {
+                Log.e("ERROR: ", Objects.requireNonNull(t.getMessage()));
                 dialog.dismiss();
             }
         });
@@ -166,7 +164,8 @@ public class DetailCommunityActivity extends AppCompatActivity {
         Call<DetailVenueResponse> request = services.detailVenueGET(Integer.toString(data.getId_venue()));
         request.enqueue(new Callback<DetailVenueResponse>() {
             @Override
-            public void onResponse(Call<DetailVenueResponse> call, Response<DetailVenueResponse> response) {
+            public void onResponse(@NotNull Call<DetailVenueResponse> call, @NotNull Response<DetailVenueResponse> response) {
+                assert response.body() != null;
                 final Venue venueDetail = response.body().getData();
                 if(venueDetail!=null){
                     TextView tvTitleVenue = findViewById(R.id.tv_title_venue);
@@ -185,22 +184,18 @@ public class DetailCommunityActivity extends AppCompatActivity {
                                 .into(ivPhotoVenue);
                     }
 
-                    cvVenue.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent moveWithObjectIntent = new Intent(getApplicationContext(), DetailVenueActivity.class);
-                            moveWithObjectIntent.putExtra(DetailVenueActivity.EXTRA_INTENT, venueDetail);
-                            startActivity(moveWithObjectIntent);
-                        }
+                    cvVenue.setOnClickListener(v -> {
+                        Intent moveWithObjectIntent = new Intent(getApplicationContext(), DetailVenueActivity.class);
+                        moveWithObjectIntent.putExtra(DetailVenueActivity.EXTRA_INTENT, venueDetail);
+                        startActivity(moveWithObjectIntent);
                     });
                     llVenue.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
-            public void onFailure(Call<DetailVenueResponse> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "Get Detail Community Failed", Toast.LENGTH_LONG).show();
-                Log.e("ERROR: ", t.getMessage());
+            public void onFailure(@NotNull Call<DetailVenueResponse> call, @NotNull Throwable t) {
+                Log.e("ERROR: ", Objects.requireNonNull(t.getMessage()));
             }
         });
     }
@@ -214,7 +209,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
     private void openWhatsApp(String numberPhone){
         PackageManager pm = getPackageManager();
         try {
-            PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+            pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
 
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_VIEW);

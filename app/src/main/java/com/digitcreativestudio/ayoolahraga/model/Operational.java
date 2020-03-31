@@ -7,9 +7,7 @@ public class Operational implements Parcelable {
     private String day;
     private String hour;
 
-    public Operational() {}
-
-    protected Operational(Parcel in) {
+    private Operational(Parcel in) {
         day = in.readString();
         hour = in.readString();
     }

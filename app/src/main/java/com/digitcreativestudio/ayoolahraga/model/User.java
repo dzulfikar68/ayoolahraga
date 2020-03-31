@@ -7,9 +7,7 @@ public class User implements Parcelable {
     private int id_user;
     private String name_user, address_user, phone, email, birth, hoby;
 
-    public User(){}
-
-    protected User(Parcel in) {
+    private User(Parcel in) {
         id_user = in.readInt();
         name_user = in.readString();
         address_user = in.readString();

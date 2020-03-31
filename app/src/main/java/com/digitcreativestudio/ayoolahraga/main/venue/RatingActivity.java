@@ -1,32 +1,42 @@
 package com.digitcreativestudio.ayoolahraga.main.venue;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.adapter.RatingAdapter;
 import com.digitcreativestudio.ayoolahraga.model.Venue;
-import com.digitcreativestudio.ayoolahraga.network.*;
+import com.digitcreativestudio.ayoolahraga.network.BasicResponse;
+import com.digitcreativestudio.ayoolahraga.network.ClientServices;
 import com.digitcreativestudio.ayoolahraga.utils.SharedPrefManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.OnItemClickListener;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import java.util.HashMap;
 
 import static com.digitcreativestudio.ayoolahraga.utils.Constant.BASE_URL;
 
@@ -34,11 +44,7 @@ public class RatingActivity extends AppCompatActivity {
 
     public static String EXTRA_INTENT = "EXTRA_INTENT_RATING";
 
-    private Bundle bundle;
     private Venue venue;
-    private ClientServices services;
-    private RecyclerView recyclerView;
-    private RatingAdapter adapter;
     private FloatingActionButton fabRating;
 
     @Override
@@ -48,9 +54,8 @@ public class RatingActivity extends AppCompatActivity {
 
         fabRating = findViewById(R.id.fab_rating);
 
-        bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-//            ArrayList<Rating> listRating = bundle.getParcelableArrayList(RatingActivity.EXTRA_INTENT);
             venue = bundle.getParcelable(RatingActivity.EXTRA_INTENT);
 
             if(getSupportActionBar() != null){
@@ -58,10 +63,10 @@ public class RatingActivity extends AppCompatActivity {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
 
-            adapter = new RatingAdapter(getApplicationContext());
+            RatingAdapter adapter = new RatingAdapter();
             adapter.setList(venue.getRating());
 
-            recyclerView = findViewById(R.id.rv_rating_venue);
+            RecyclerView recyclerView = findViewById(R.id.rv_rating_venue);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             recyclerView.setAdapter(adapter);
@@ -73,55 +78,45 @@ public class RatingActivity extends AppCompatActivity {
         checkRating();
 
         final Activity act = this;
-        fabRating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        fabRating.setOnClickListener(v -> {
             DialogPlus dialog = DialogPlus.newDialog(act)
-                .setAdapter(new BaseAdapter() {
-                    @Override
-                    public int getCount() {
-                        return 1;
-                    }
-
-                    @Override
-                    public Object getItem(int position) {
-                        return 1;
-                    }
-
-                    @Override
-                    public long getItemId(int position) {
-                        return 1;
-                    }
-
-                    @Override
-                    public View getView(int position, View convertView, ViewGroup parent) {
-                        LayoutInflater inflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-                        View view = inflater.inflate(R.layout.layout_add_rating, null);
-
-                        final RatingBar rbRate = view.findViewById(R.id.rb_rate_rating);
-                        final EditText etComment = view.findViewById(R.id.et_comment_rating);
-                        Button btnGiveRate = view.findViewById(R.id.btn_add_rating);
-
-                        btnGiveRate.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                doGiveRate(rbRate, etComment);
-                            }
-                        });
-
-                        return view;
-                    }
-                })
-                    .setOnItemClickListener(new OnItemClickListener() {
+                    .setAdapter(new BaseAdapter() {
                         @Override
-                        public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
-
+                        public int getCount() {
+                            return 1;
                         }
+
+                        @Override
+                        public Object getItem(int position) {
+                            return 1;
+                        }
+
+                        @Override
+                        public long getItemId(int position) {
+                            return 1;
+                        }
+
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            assert inflater != null;
+                            @SuppressLint({"ViewHolder", "InflateParams"}) View view = inflater.inflate(R.layout.layout_add_rating, null);
+
+                            final RatingBar rbRate = view.findViewById(R.id.rb_rate_rating);
+                            final EditText etComment = view.findViewById(R.id.et_comment_rating);
+                            Button btnGiveRate = view.findViewById(R.id.btn_add_rating);
+
+                            btnGiveRate.setOnClickListener(v1 -> doGiveRate(rbRate, etComment));
+
+                            return view;
+                        }
+                    })
+                    .setOnItemClickListener((dialog1, item, view, position) -> {
+
                     })
                     .setExpanded(false)  // This will enable the expand feature, (similar to android L share dialog)
                     .create();
             dialog.show();
-            }
         });
     }
 
@@ -146,11 +141,11 @@ public class RatingActivity extends AppCompatActivity {
         Call<BasicResponse> request = services.giveRatePOST(String.valueOf(venue.getId_venue()), params);
         request.enqueue(new Callback<BasicResponse>() {
             @Override
-            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+            public void onResponse(@NotNull Call<BasicResponse> call, @NotNull Response<BasicResponse> response) {
                 BasicResponse data = response.body();
+                assert data != null;
                 if (data.getStatus().equals("true")){
                     finish();
-//                    startActivity(getIntent());
                 }
                 Toast.makeText(getApplicationContext(), data.getMessage(), Toast.LENGTH_LONG).show();
                 dialog.dismiss();
@@ -179,18 +174,16 @@ public class RatingActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                 BasicResponse data = response.body();
+                assert data != null;
                 if (data.getStatus().equals("false")){
                     fabRating.show();
                 } else if(data.getStatus().equals("true")){
                     fabRating.hide();
-                } else {
-//                    Toast.makeText(getApplicationContext(), "Rate Failed", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<BasicResponse> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "Rate Failed", Toast.LENGTH_LONG).show();
+            public void onFailure(@NotNull Call<BasicResponse> call, @NotNull Throwable t) {
             }
         });
     }

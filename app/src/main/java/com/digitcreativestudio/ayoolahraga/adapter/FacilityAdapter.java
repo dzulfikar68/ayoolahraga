@@ -1,23 +1,19 @@
 package com.digitcreativestudio.ayoolahraga.adapter;
 
-import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.digitcreativestudio.ayoolahraga.R;
 
 import java.util.ArrayList;
 
 public class FacilityAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
-    private Context context;
     private ArrayList<String> list;
-
-    public FacilityAdapter(Context context) {
-        this.context = context;
-    }
 
     public ArrayList<String> getList() {
         return list;
@@ -36,11 +32,6 @@ public class FacilityAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder movieViewHolder, int i) {
-//        Glide.with(context)
-//                .load(getList().get(i).getImage())
-//                .apply(new RequestOptions().override(350, 550))
-//                .into(movieViewHolder.imageType);
-
         movieViewHolder.titleType.setText(getList().get(i));
     }
 

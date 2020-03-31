@@ -1,20 +1,29 @@
 package com.digitcreativestudio.ayoolahraga.network;
 
-import com.digitcreativestudio.ayoolahraga.network.xml.*;
-import org.simpleframework.xml.*;
+import com.digitcreativestudio.ayoolahraga.network.xml.Author;
+import com.digitcreativestudio.ayoolahraga.network.xml.Category;
+import com.digitcreativestudio.ayoolahraga.network.xml.Entry;
+import com.digitcreativestudio.ayoolahraga.network.xml.Generator;
+import com.digitcreativestudio.ayoolahraga.network.xml.Link;
+import com.digitcreativestudio.ayoolahraga.network.xml.Title;
+
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 
 import java.util.List;
 
 //@Root(name="feed", strict=false)
 public class BlogResponse {
     @ElementList(inline = true, required = false)
+    private
     List<Entry> entry;
 
     @Element(name = "id")
+    private
     String id;
 
     @Element(name = "updated")
-    String updated;
+    private String updated;
 
 //    @ElementListUnion({
 //            @ElementList(inline = true, required = false, type = TestCase.class, name = "TestCase"),
@@ -22,31 +31,31 @@ public class BlogResponse {
 //    })
 //    @Element(name = "title")
     @ElementList(name = "title", inline = true, required = false)
-    List<Title> title;
+    private List<Title> title;
 
     @Element(name = "subtitle")
-    String subtitle;
+    private String subtitle;
 
     @ElementList(inline = true, required = false)
-    List<Link> link;
+    private List<Link> link;
 
     @ElementList(inline = true, required = false)
-    List<Category> category;
+    private List<Category> category;
 
     @Element(name = "author")
-    Author author;
+    private Author author;
 
     @ElementList(inline = true, required = false)
-    List<Generator> generator;
+    private List<Generator> generator;
 
     @Element(name = "totalResults")
-    Author totalResults;
+    private Author totalResults;
 
     @Element(name = "startIndex")
-    Author startIndex;
+    private Author startIndex;
 
     @Element(name = "itemsPerPage")
-    Author itemsPerPage;
+    private Author itemsPerPage;
 
     public List<Entry> getEntry() {
         return entry;

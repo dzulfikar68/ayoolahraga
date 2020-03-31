@@ -1,26 +1,21 @@
 package com.digitcreativestudio.ayoolahraga.adapter;
 
-import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.model.Rating;
 
 import java.util.ArrayList;
 
 public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ItemViewHolder> {
-
-    private Context context;
     private ArrayList<Rating> list;
-
-    public RatingAdapter(Context context) {
-        this.context = context;
-    }
 
     public ArrayList<Rating> getList() {
         return list;

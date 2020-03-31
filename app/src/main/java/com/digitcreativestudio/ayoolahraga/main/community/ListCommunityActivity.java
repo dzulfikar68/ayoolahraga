@@ -1,13 +1,20 @@
 package com.digitcreativestudio.ayoolahraga.main.community;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.adapter.CommunityAdapter;
 import com.digitcreativestudio.ayoolahraga.model.Community;
@@ -15,13 +22,16 @@ import com.digitcreativestudio.ayoolahraga.model.Type;
 import com.digitcreativestudio.ayoolahraga.network.ClientServices;
 import com.digitcreativestudio.ayoolahraga.network.ListCommunityResponse;
 import com.digitcreativestudio.ayoolahraga.utils.ItemClickSupport;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import java.util.ArrayList;
 
 import static com.digitcreativestudio.ayoolahraga.utils.Constant.BASE_URL;
 
@@ -29,12 +39,9 @@ public class ListCommunityActivity extends AppCompatActivity {
 
     public static String EXTRA_INTENT = "EXTRA_INTENT_LIST_C";
 
-    private Bundle bundle;
     private ClientServices services;
-    private RecyclerView recyclerView;
     private CommunityAdapter adapter;
     private ArrayList<Community> list = new ArrayList<>();
-    private ImageButton btnSearch;
     private EditText etSearch;
 
     @Override
@@ -43,12 +50,12 @@ public class ListCommunityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_community);
 
         etSearch = findViewById(R.id.et_search_community);
-        btnSearch = findViewById(R.id.btn_search_community);
+        ImageButton btnSearch = findViewById(R.id.btn_search_community);
 
         adapter = new CommunityAdapter(getApplicationContext());
         adapter.setList(list);
 
-        recyclerView = findViewById(R.id.rv_list_community);
+        RecyclerView recyclerView = findViewById(R.id.rv_list_community);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         recyclerView.setAdapter(adapter);
@@ -59,10 +66,11 @@ public class ListCommunityActivity extends AppCompatActivity {
                 .build();
         services = retrofit.create(ClientServices.class);
 
-        bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         final Type type;
         if(bundle != null){
             type = bundle.getParcelable(ListCommunityActivity.EXTRA_INTENT);
+            assert type != null;
             requestList(String.valueOf(type.getId()),"");
 
             if(getSupportActionBar() != null){
@@ -70,22 +78,13 @@ public class ListCommunityActivity extends AppCompatActivity {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
 
-            btnSearch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    requestList(String.valueOf(type.getId()), etSearch.getText().toString().trim());
-                }
-            });
+            btnSearch.setOnClickListener(v -> requestList(String.valueOf(type.getId()), etSearch.getText().toString().trim()));
         }
 
-        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View view) {
-//                Toast.makeText(getApplicationContext(), "Kamu memilih " + list.get(position).getName_community(), Toast.LENGTH_LONG).show();
-                Intent moveWithObjectIntent = new Intent(getApplicationContext(), DetailCommunityActivity.class);
-                moveWithObjectIntent.putExtra(DetailCommunityActivity.EXTRA_INTENT, list.get(position));
-                startActivity(moveWithObjectIntent);
-            }
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener((recyclerView1, position, view) -> {
+            Intent moveWithObjectIntent = new Intent(getApplicationContext(), DetailCommunityActivity.class);
+            moveWithObjectIntent.putExtra(DetailCommunityActivity.EXTRA_INTENT, list.get(position));
+            startActivity(moveWithObjectIntent);
         });
     }
 
@@ -97,8 +96,9 @@ public class ListCommunityActivity extends AppCompatActivity {
         Call<ListCommunityResponse> request = services.listCommunityGET(type, query);
         request.enqueue(new Callback<ListCommunityResponse>() {
             @Override
-            public void onResponse(Call<ListCommunityResponse> call, Response<ListCommunityResponse> response) {
+            public void onResponse(@NotNull Call<ListCommunityResponse> call, @NotNull Response<ListCommunityResponse> response) {
                 list.clear();
+                assert response.body() != null;
                 list = response.body().getData();
                 if(list.isEmpty()) Toast.makeText(getApplicationContext(), "List Kosong/ Pencarian tidak ada", Toast.LENGTH_LONG).show();
                 adapter.setList(list);
@@ -107,9 +107,9 @@ public class ListCommunityActivity extends AppCompatActivity {
                 if (list.isEmpty()) findViewById(R.id.tv_not_found).setVisibility(View.VISIBLE);
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onFailure(Call<ListCommunityResponse> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(),"Get List Community Failed", Toast.LENGTH_LONG).show();
+            public void onFailure(@NotNull Call<ListCommunityResponse> call, @NotNull Throwable t) {
                 pgListCommunity.setVisibility(View.GONE);
                 TextView error = findViewById(R.id.tv_not_found);
                 error.setVisibility(View.VISIBLE);

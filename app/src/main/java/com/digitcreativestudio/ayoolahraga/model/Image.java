@@ -8,7 +8,7 @@ public class Image implements Parcelable {
 
     public Image() {}
 
-    protected Image(Parcel in) {
+    private Image(Parcel in) {
         url_image = in.readString();
     }
 

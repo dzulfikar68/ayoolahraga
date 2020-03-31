@@ -1,27 +1,33 @@
 package com.digitcreativestudio.ayoolahraga.adapter;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.model.Type;
 import com.digitcreativestudio.ayoolahraga.model.UnsplashResults;
 import com.digitcreativestudio.ayoolahraga.network.ClientServices;
 import com.digitcreativestudio.ayoolahraga.network.UnsplashResponse;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.digitcreativestudio.ayoolahraga.utils.Constant.UNSPLASH_URL;
 
@@ -78,20 +84,20 @@ public class TypeAdapter extends RecyclerView.Adapter<ImageViewHolder> {
         );
         request.enqueue(new Callback<UnsplashResponse>() {
             @Override
-            public void onResponse(Call<UnsplashResponse> call, Response<UnsplashResponse> response) {
+            public void onResponse(@NotNull Call<UnsplashResponse> call, @NotNull Response<UnsplashResponse> response) {
+                assert response.body() != null;
                 List<UnsplashResults> photos = response.body().getResults();
                 if(!photos.isEmpty()) {
                     Glide.with(context)
                             .load(photos.get(0).getUrls().getThumb())
                             .placeholder(context.getDrawable(R.drawable.ayoolahraga_placeholder))
-//                            .apply(new RequestOptions().override(500, 500))
                             .into(image);
                 }
             }
 
             @Override
             public void onFailure(Call<UnsplashResponse> call, Throwable t) {
-                Log.e("ERROR", t.getMessage());
+                Log.e("ERROR", Objects.requireNonNull(t.getMessage()));
             }
         });
     }
