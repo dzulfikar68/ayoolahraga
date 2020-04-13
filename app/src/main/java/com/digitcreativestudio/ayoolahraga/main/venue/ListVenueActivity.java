@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digitcreativestudio.ayoolahraga.R;
@@ -57,7 +57,7 @@ public class ListVenueActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.rv_venue_sport);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapter);
 
         Retrofit retrofit = new Retrofit.Builder()
