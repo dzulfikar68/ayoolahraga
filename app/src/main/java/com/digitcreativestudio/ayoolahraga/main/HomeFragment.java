@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -63,6 +65,8 @@ public class HomeFragment extends Fragment {
     private ArrayList<Type> listType = new ArrayList<>();
     private ArrayList<Type> listCommunity = new ArrayList<>();
     private ArrayList<Blog> listBlog = new ArrayList<>();
+    private TextView tvName;
+    private CardView cvName;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -76,18 +80,20 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView tvName = view.findViewById(R.id.tv_name_user);
-        CardView cvName = view.findViewById(R.id.cv_name);
+        tvName = view.findViewById(R.id.tv_name_user);
+        cvName = view.findViewById(R.id.cv_name);
 
         RecyclerView rvType = view.findViewById(R.id.rv_type_sport);
         RecyclerView rvCommunity = view.findViewById(R.id.rv_list_community);
         RecyclerView rvBlog = view.findViewById(R.id.rv_blog);
-
-        final String welcome = SharedPrefManager.getInstance(getActivity()).getStringPref(SharedPrefManager.KEY_NAME);
-        tvName.setText(welcome);
 
         adapterType = new TypeAdapter(getActivity());
         adapterCommunity = new TypeAdapter(getActivity());
@@ -121,10 +127,6 @@ public class HomeFragment extends Fragment {
                 .build();
         services = retrofit.create(ClientServices.class);
 
-        requestListType();
-        requestListCommunity();
-        requestListBlog();
-
         ItemClickSupport.addTo(rvType).setOnItemClickListener((recyclerView, position, view13) -> {
             Intent moveWithObjectIntent = new Intent(getActivity(), ListVenueActivity.class);
             moveWithObjectIntent.putExtra(ListVenueActivity.EXTRA_INTENT, listType.get(position));
@@ -142,10 +144,29 @@ public class HomeFragment extends Fragment {
             moveWithObjectIntent.putExtra(DetailBlogActivity.EXTRA_INTENT, listBlog.get(position));
             startActivity(moveWithObjectIntent);
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final boolean isLogin = SharedPrefManager.getInstance(getActivity()).isLoggedIn();
+        final String welcome = SharedPrefManager.getInstance(getActivity()).getStringPref(SharedPrefManager.KEY_NAME);
+        if (welcome == null) {
+            tvName.setVisibility(View.GONE);
+        } else {
+            tvName.setText(welcome);
+        }
+
+        requestListType();
+        requestListCommunity();
+        requestListBlog();
 
         cvName.setOnClickListener(v -> {
-            Toast.makeText(getActivity(), "Halo " + welcome, Toast.LENGTH_LONG).show();
+            if (isLogin) {
+                Toast.makeText(getActivity(), "Halo " + welcome, Toast.LENGTH_LONG).show();
+            }
         });
+
     }
 
     private void requestListType(){
@@ -250,8 +271,4 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 }

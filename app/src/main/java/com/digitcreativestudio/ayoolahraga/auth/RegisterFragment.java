@@ -4,7 +4,6 @@ package com.digitcreativestudio.ayoolahraga.auth;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.digitcreativestudio.ayoolahraga.R;
-import com.digitcreativestudio.ayoolahraga.SplashActivity;
 import com.digitcreativestudio.ayoolahraga.network.ClientServices;
 import com.digitcreativestudio.ayoolahraga.network.RegisterResponse;
 
@@ -138,12 +136,13 @@ public class RegisterFragment extends Fragment {
 
                     if (data != null) {
                         if (data.getStatus().equals("true")) {
-                            Intent intent = new Intent(getActivity(), SplashActivity.class);
-                            startActivity(intent);
+//                            Intent intent = new Intent(getActivity(), SplashActivity.class);
+//                            startActivity(intent);
+//                            Objects.requireNonNull(getActivity()).finish();
+                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_LONG).show();
+                            dialog.dismiss();
                             Objects.requireNonNull(getActivity()).finish();
                         }
-                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
                     }
                 }
 

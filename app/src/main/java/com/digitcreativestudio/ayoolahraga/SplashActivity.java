@@ -1,27 +1,40 @@
 package com.digitcreativestudio.ayoolahraga;
 
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.digitcreativestudio.ayoolahraga.auth.AuthActivity;
+import android.os.CountDownTimer;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.digitcreativestudio.ayoolahraga.main.MainActivity;
-import com.digitcreativestudio.ayoolahraga.utils.SharedPrefManager;
 
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splashscreen);
 
         Intent intent;
-        if(SharedPrefManager.getInstance(getApplicationContext()).isLoggedIn()){
-            intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        } else {
-            intent = new Intent(this, AuthActivity.class);
-            startActivity(intent);
-        }
+        intent = new Intent(this, MainActivity.class);
+        new CountDownTimer(3000, 1000) {
+            public void onTick(long millisUntilDone) {
+            }
 
-        finish();
+            public void onFinish() {
+                startActivity(intent);
+                finish();
+            }
+        }.start();
+
+//        Intent intent;
+//        if(SharedPrefManager.getInstance(getApplicationContext()).isLoggedIn()){
+//            intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+//        } else {
+//            intent = new Intent(this, AuthActivity.class);
+//            startActivity(intent);
+//        }
+//        finish();
     }
 }

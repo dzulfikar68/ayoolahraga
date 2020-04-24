@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.digitcreativestudio.ayoolahraga.R;
-import com.digitcreativestudio.ayoolahraga.main.MainActivity;
 import com.digitcreativestudio.ayoolahraga.main.setting.TutorialActivity;
 import com.digitcreativestudio.ayoolahraga.network.ClientServices;
 import com.digitcreativestudio.ayoolahraga.network.LoginResponse;
@@ -91,17 +90,18 @@ public class LoginFragment extends Fragment {
             Call<LoginResponse> request = services.loginPOST(params);
             request.enqueue(new Callback<LoginResponse>() {
                 @Override
-                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                public void onResponse(Call<LoginResponse> call, @NotNull Response<LoginResponse> response) {
                     dataLogin = response.body();
                     SharedPrefManager.getInstance(getActivity())
                             .setLogin(dataLogin.getData());
 
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
-                    Objects.requireNonNull(getActivity()).finish();
+//                    Intent intent = new Intent(getActivity(), MainActivity.class);
+//                    startActivity(intent);
+//                    Objects.requireNonNull(getActivity()).finish();
 
                     Toast.makeText(getActivity(), dataLogin.getMessage(), Toast.LENGTH_LONG).show();
                     dialog.dismiss();
+                    Objects.requireNonNull(getActivity()).finish();
                 }
 
                 @Override

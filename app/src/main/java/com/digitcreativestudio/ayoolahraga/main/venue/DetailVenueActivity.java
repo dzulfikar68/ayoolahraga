@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +26,7 @@ import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.adapter.FacilityAdapter;
 import com.digitcreativestudio.ayoolahraga.adapter.MainSliderAdapter;
 import com.digitcreativestudio.ayoolahraga.adapter.OperationalAdapter;
+import com.digitcreativestudio.ayoolahraga.auth.AuthActivity;
 import com.digitcreativestudio.ayoolahraga.model.Image;
 import com.digitcreativestudio.ayoolahraga.model.Operational;
 import com.digitcreativestudio.ayoolahraga.model.Rating;
@@ -74,6 +74,7 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
     private Slider sliderPhoto;
     private RatingBar ratingVenue, ratingComment;
     private LinearLayout llLastComment;
+    private Boolean isLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,9 +190,15 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
 
 //                final ArrayList<Rating> listRating = venueDetail.getRating();
                     cvRating.setOnClickListener(v -> {
-                        Intent moveWithObjectIntent = new Intent(getApplicationContext(), RatingActivity.class);
-                        moveWithObjectIntent.putExtra(RatingActivity.EXTRA_INTENT, venueDetail);
-                        startActivity(moveWithObjectIntent);
+                        isLogin = SharedPrefManager.getInstance(getApplicationContext()).isLoggedIn();
+                        if (isLogin) {
+                            Intent moveWithObjectIntent = new Intent(getApplicationContext(), RatingActivity.class);
+                            moveWithObjectIntent.putExtra(RatingActivity.EXTRA_INTENT, venueDetail);
+                            startActivity(moveWithObjectIntent);
+                        } else {
+                            Intent intent = new Intent(getApplicationContext(), AuthActivity.class);
+                            startActivity(intent);
+                        }
                     });
 
                     Button btnPhone = findViewById(R.id.btn_telp);
@@ -246,7 +253,7 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
     private void openWhatsApp(String numberPhone){
         PackageManager pm = getPackageManager();
         try {
-            PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+            pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
 
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_VIEW);
@@ -301,13 +308,17 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         try{
-
             //seattle coordinates
             LatLng point = new LatLng(Double.valueOf(venue.getLatitude()), Double.valueOf(venue.getLongitude()));
-
             googleMap.addMarker(new MarkerOptions().position(point).title(venue.getAddress_venue()));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17.5f));
             googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            tvTitle.setOnClickListener(v -> {
+                Uri gmmIntentUri = Uri.parse("geo:" + venue.getLatitude() + "," + venue.getLongitude());
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+            });
         } catch (Exception e){
             Log.e("ERROR:", e.toString());
             e.printStackTrace();
