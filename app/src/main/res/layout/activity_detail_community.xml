@@ -1,100 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".main.community.DetailCommunityActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    tools:context=".main.community.DetailCommunityActivity">
 
     <ScrollView android:scrollbars="none" android:nestedScrollingEnabled="true" android:layout_width="match_parent" android:layout_height="match_parent">
 
         <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
 
             <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content"
-                                               android:foreground="?android:attr/selectableItemBackground"
-                                               android:clickable="true"
-                                               android:layout_marginLeft="5dp"
-                                               android:layout_marginRight="5dp"
-                                               android:layout_marginTop="20dp"
-                                               android:layout_marginBottom="20dp"
-                                               app:cardBackgroundColor="@android:color/white"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="20dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:focusable="true"
-                app:cardCornerRadius="5dp">
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp">
                 <ss.com.bannerslider.Slider
-                        android:id="@+id/iv_image_community"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"/>
+                    android:id="@+id/iv_image_community"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
             </androidx.cardview.widget.CardView>
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:id="@+id/tv_title_community"
-                      android:textStyle="bold"
-                      android:textSize="30sp"
-                      android:textColor="@android:color/black"
-                      android:maxLines="1"
-                      android:layout_marginBottom="10dp"
-                      android:text="@string/title_community"/>
+                android:id="@+id/tv_title_community"
+                android:layout_marginBottom="10dp"
+                android:maxLines="1"
+                android:text="@string/title_community"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:id="@+id/tv_description_community"
-                      android:text="@string/description_community"/>
+                android:id="@+id/tv_description_community"
+                android:text="@string/description_community" />
 
             <View
                 android:layout_marginTop="20dp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#CCCCCC" />
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:background="#CCCCCC" />
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:layout_marginTop="20dp"
-                      android:layout_marginBottom="10dp"
-                      android:textSize="20sp"
-                      android:textColor="@android:color/black"
-                      android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:text="@string/operational" />
             <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent" android:layout_height="wrap_content"
-                                                       android:id="@+id/rv_operational_community"/>
+                android:id="@+id/rv_operational_community" />
 
             <View
-                    android:layout_marginTop="20dp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#CCCCCC" />
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="20dp"
+                android:background="#CCCCCC" />
 
             <LinearLayout android:id="@+id/ll_venue"
-                          android:visibility="gone"
-                          android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:layout_marginTop="20dp"
-                          android:textSize="20sp"
-                          android:textColor="@android:color/black"
-                          android:textStyle="bold"
-                          android:text="@string/tempat_latihan"/>
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tempat_latihan"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout android:layout_marginTop="5dp"
-                              android:layout_marginBottom="20dp"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:foreground="?android:attr/selectableItemBackground"
-                              android:clickable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:focusable="true"
                     android:orientation="vertical"
                     tools:ignore="UnusedAttribute">
 
                     <androidx.cardview.widget.CardView android:layout_width="match_parent"
-                                                       android:foreground="?android:attr/selectableItemBackground"
-                                                       android:clickable="true"
-                                                       android:id="@+id/cv_venue"
-                                                       android:layout_margin="5dp"
-                                                       app:cardBackgroundColor="@android:color/white"
-                                                       app:cardCornerRadius="5dp"
-                                                       android:layout_height="wrap_content">
+                        android:id="@+id/cv_venue"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardBackgroundColor="@android:color/white"
+                        app:cardCornerRadius="5dp">
 
                         <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
 
@@ -110,20 +112,20 @@
                             <LinearLayout android:layout_weight="2" android:padding="10dp" android:layout_width="0dp" android:layout_height="wrap_content" android:orientation="vertical">
 
                                 <TextView android:id="@+id/tv_title_venue" android:ellipsize="end" android:textStyle="bold" android:maxLines="1" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                          android:text="@string/title_venue"/>
+                                    android:text="@string/title_venue" />
                                 <TextView android:id="@+id/tv_address_venue" android:ellipsize="end" android:maxLines="2" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                          android:text="@string/address_venue"/>
+                                    android:text="@string/address_venue" />
                                 <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                                        android:layout_marginTop="5dp"
-                                        android:id="@+id/rb_rating_venue"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="15dp"
-                                        android:isIndicator="true"
-                                        app:mrb_indeterminateTint="@android:color/darker_gray"
-                                        app:mrb_progressBackgroundTintMode="multiply"
-                                        app:mrb_progressTint="@android:color/holo_orange_light"
-                                        app:mrb_fillBackgroundStars="true"
-                                        style="@style/Widget.MaterialRatingBar.RatingBar" />
+                                    android:id="@+id/rb_rating_venue"
+                                    style="@style/Widget.MaterialRatingBar.RatingBar"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="15dp"
+                                    android:layout_marginTop="5dp"
+                                    android:isIndicator="true"
+                                    app:mrb_fillBackgroundStars="true"
+                                    app:mrb_indeterminateTint="@android:color/darker_gray"
+                                    app:mrb_progressBackgroundTintMode="multiply"
+                                    app:mrb_progressTint="@android:color/holo_orange_light" />
 
                             </LinearLayout>
 
@@ -134,46 +136,50 @@
                 </LinearLayout>
 
                 <View   android:layout_width="fill_parent"
-                        android:layout_height="0.5dp"
-                        android:background="#CCCCCC" />
+                    android:layout_height="0.5dp"
+                    android:background="#CCCCCC" />
 
             </LinearLayout>
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:layout_marginTop="20dp"
-                      android:textSize="20sp"
-                      android:textColor="@android:color/black"
-                      android:textStyle="bold"
-                      android:layout_marginBottom="10dp"
-                      android:text="@string/contact"/>
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/contact"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
             <LinearLayout android:visibility="gone" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                          android:id="@+id/tv_email_community"
-                          android:layout_weight="1"
-                          android:textColor="@android:color/black"
-                          android:text="@string/email_community"/>
+                    android:id="@+id/tv_email_community"
+                    android:layout_weight="1"
+                    android:text="@string/email_community"
+                    android:textColor="@android:color/black" />
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                          android:id="@+id/tv_phone_community"
-                          android:textColor="@android:color/black"
-                          android:layout_weight="1"
-                          android:text="@string/phone_community"/>
+                    android:id="@+id/tv_phone_community"
+                    android:layout_weight="1"
+                    android:text="@string/phone_community"
+                    android:textColor="@android:color/black" />
             </LinearLayout>
 
-            <LinearLayout android:layout_marginBottom="100dp" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
+                android:gravity="center"
+                android:orientation="horizontal">
                 <Button android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:id="@+id/btn_email"
-                        android:drawableStart="@drawable/ic_social_media_white_24dp"
-                        android:layout_weight="1"
-                        style="@style/Widget.AppCompat.Button.Colored"
-                        android:text="@string/social_media"/>
+                    android:id="@+id/btn_email"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_social_media_white_24dp"
+                    android:text="@string/social_media" />
                 <Button android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:id="@+id/btn_telp"
-                        android:drawableStart="@drawable/ic_chat_black_24dp"
-                        android:layout_weight="1"
+                    android:id="@+id/btn_telp"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_chat_black_24dp"
                     style="@style/Widget.AppCompat.Button"
                     android:text="@string/chat_number"
-                    android:textColor="@android:color/black"
-                    tools:ignore="ButtonStyle" />
+                    android:textColor="@android:color/black" />
             </LinearLayout>
 
         </LinearLayout>
