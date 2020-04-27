@@ -35,6 +35,7 @@ import com.digitcreativestudio.ayoolahraga.network.ClientServices;
 import com.digitcreativestudio.ayoolahraga.network.DetailVenueResponse;
 import com.digitcreativestudio.ayoolahraga.utils.DatabaseHelper;
 import com.digitcreativestudio.ayoolahraga.utils.GlideImageLoadingService;
+import com.digitcreativestudio.ayoolahraga.utils.ImageViewDialog;
 import com.digitcreativestudio.ayoolahraga.utils.SharedPrefManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -167,7 +168,7 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
                         Rating rating = venueDetail.getRating().get(0);
                         tvNameComment.setText(rating.getName_user());
                         tvMessageComment.setText(rating.getMessage());
-                        ratingComment.setRating(Float.valueOf(rating.getScore()));
+                        ratingComment.setRating(Float.parseFloat(rating.getScore()));
                     }
                     if(!venueDetail.getOperational().isEmpty()){
                         listOperational.addAll(venueDetail.getOperational());
@@ -187,8 +188,11 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
                         images.add(image);
                         Slider.init(new GlideImageLoadingService(DetailVenueActivity.this));
                         sliderPhoto.setAdapter(new MainSliderAdapter(images));
+                        sliderPhoto.setOnSlideClickListener(position -> new ImageViewDialog(
+                                DetailVenueActivity.this, images.get(position).getUrl_image()).dialog()
+                        );
                     }
-                    ratingVenue.setRating(Float.valueOf(venueDetail.getRating_total()));
+                    ratingVenue.setRating(Float.parseFloat(venueDetail.getRating_total()));
                     tvEmail.setText(venueDetail.getEmail_user());
                     tvPhone.setText(venueDetail.getPhone_user());
 

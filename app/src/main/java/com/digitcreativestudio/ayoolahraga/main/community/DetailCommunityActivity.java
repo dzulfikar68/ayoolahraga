@@ -33,6 +33,7 @@ import com.digitcreativestudio.ayoolahraga.network.ClientServices;
 import com.digitcreativestudio.ayoolahraga.network.DetailCommunityResponse;
 import com.digitcreativestudio.ayoolahraga.network.DetailVenueResponse;
 import com.digitcreativestudio.ayoolahraga.utils.GlideImageLoadingService;
+import com.digitcreativestudio.ayoolahraga.utils.ImageViewDialog;
 import com.digitcreativestudio.ayoolahraga.utils.SharedPrefManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -130,6 +131,9 @@ public class DetailCommunityActivity extends AppCompatActivity {
                 Slider.init(new GlideImageLoadingService(DetailCommunityActivity.this));
                 if(!communityDetail.getImage().isEmpty()){
                     sliderPhoto.setAdapter(new MainSliderAdapter(communityDetail.getImage()));
+                    sliderPhoto.setOnSlideClickListener(position -> new ImageViewDialog(
+                            DetailCommunityActivity.this, communityDetail.getImage().get(position).getUrl_image()).dialog()
+                    );
                 } else {
                     Image image = new Image();
                     image.setUrl_image("https://www.capebretonpost.com/media/photologue/photos/cache/CB-23112018-Winter-Sports-SUB_large.jpg");
