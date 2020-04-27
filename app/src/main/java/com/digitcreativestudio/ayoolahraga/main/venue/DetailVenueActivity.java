@@ -149,6 +149,7 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
 
         Call<DetailVenueResponse> request = services.detailVenueGET(Integer.toString(venue.getId_venue()));
         request.enqueue(new Callback<DetailVenueResponse>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NotNull Call<DetailVenueResponse> call, @NotNull Response<DetailVenueResponse> response) {
                 try{
@@ -206,11 +207,14 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
 
                     ImageView btnPhone = findViewById(R.id.btn_telp);
                     ImageView btnEmail = findViewById(R.id.btn_email);
+                    ImageView btnWhatsapp = findViewById(R.id.btn_whatsapp);
                     ImageView btnFacebook = findViewById(R.id.btn_facebook);
                     ImageView btnInstagram = findViewById(R.id.btn_instagram);
 
-                    btnPhone.setOnClickListener(v -> openWhatsApp(venueDetail.getPhone_user()));
+
+                    btnPhone.setOnClickListener(v -> openDial(venueDetail.getTelp_venue()));
                     btnEmail.setOnClickListener(v -> sendEmail(venueDetail.getEmail_user()));
+                    btnWhatsapp.setOnClickListener(v -> openWhatsApp(venueDetail.getHandphone_venue()));
                     btnFacebook.setOnClickListener(v -> openBrowser(venueDetail.getLink_facebook()));
                     btnInstagram.setOnClickListener(v -> openBrowser(venueDetail.getLink_instagram()));
 
@@ -257,10 +261,20 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
         }
     }
 
+    private void openDial(String number) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + number));
+        startActivity(intent);
+    }
+
     private void openBrowser(String url) {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
+        if (url != null &&
+                (url.contains("http://") ||
+                        url.contains("https://"))) {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        }
     }
 
     private void openWhatsApp(String numberPhone){

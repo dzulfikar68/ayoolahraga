@@ -12,7 +12,8 @@
         <ImageView android:layout_centerInParent="true"
                    android:layout_width="wrap_content"
                    android:layout_height="200dp"
-                   android:src="@drawable/ayoolahraga_logo_green"/>
+            android:src="@drawable/ayoolahraga_logo_green"
+            tools:ignore="ContentDescription" />
 
         <LinearLayout
                 android:background="@color/colorTransparent"
@@ -38,7 +39,8 @@
                       android:id="@+id/et_name"
                       android:hint="@string/name"
                       android:layout_marginBottom="10dp"
-                      android:inputType="text"/>
+                android:importantForAutofill="no"
+                android:inputType="text" />
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:text="@string/email_c"
@@ -48,7 +50,8 @@
                       android:id="@+id/et_email"
                       android:hint="@string/email"
                       android:layout_marginBottom="10dp"
-                      android:inputType="textEmailAddress"/>
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress" />
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:text="@string/password_c"
@@ -58,7 +61,8 @@
                       android:id="@+id/et_password"
                       android:hint="@string/password"
                       android:layout_marginBottom="10dp"
-                      android:inputType="textPassword"/>
+                android:importantForAutofill="no"
+                android:inputType="textPassword" />
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:text="@string/password_confirmation_c"
@@ -68,7 +72,8 @@
                       android:id="@+id/et_password_confirmation"
                       android:hint="@string/password"
                       android:layout_marginBottom="10dp"
-                      android:inputType="textPassword"/>
+                android:importantForAutofill="no"
+                android:inputType="textPassword" />
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:text="@string/birth_c"
@@ -85,7 +90,8 @@
                              android:src="@drawable/ic_date_range_black_24dp"
                              android:layout_gravity="start"
                              android:padding="5dp"
-                             android:id="@+id/btn_birth"/>
+                    android:id="@+id/btn_birth"
+                    tools:ignore="ContentDescription" />
             </LinearLayout>
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -96,7 +102,8 @@
                       android:id="@+id/et_phone"
                       android:hint="@string/phone"
                       android:layout_marginBottom="10dp"
-                      android:inputType="phone"/>
+                android:importantForAutofill="no"
+                android:inputType="phone" />
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:text="@string/address_c"
@@ -106,7 +113,8 @@
                       android:id="@+id/et_address"
                       android:hint="@string/address"
                       android:layout_marginBottom="10dp"
-                      android:inputType="text"/>
+                android:importantForAutofill="no"
+                android:inputType="text" />
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:text="@string/hoby_c"
@@ -116,7 +124,8 @@
                       android:id="@+id/et_hoby"
                       android:hint="@string/hoby"
                       android:layout_marginBottom="10dp"
-                      android:inputType="text"/>
+                android:importantForAutofill="no"
+                android:inputType="text" />
 
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:text="@string/register"
@@ -124,6 +133,7 @@
                     android:id="@+id/btn_register"/>
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:text="@string/back_to_login"
+                android:textSize="15sp"
                     android:id="@+id/btn_back"/>
 
         </LinearLayout>

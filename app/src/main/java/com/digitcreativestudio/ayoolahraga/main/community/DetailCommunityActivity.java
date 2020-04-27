@@ -34,6 +34,7 @@ import com.digitcreativestudio.ayoolahraga.network.DetailCommunityResponse;
 import com.digitcreativestudio.ayoolahraga.network.DetailVenueResponse;
 import com.digitcreativestudio.ayoolahraga.utils.GlideImageLoadingService;
 import com.digitcreativestudio.ayoolahraga.utils.SharedPrefManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -139,7 +140,6 @@ public class DetailCommunityActivity extends AppCompatActivity {
 
                 Button btnPhone = findViewById(R.id.btn_telp);
                 Button btnEmail = findViewById(R.id.btn_email);
-
                 btnPhone.setOnClickListener(v -> openWhatsApp(communityDetail.getContact_community()));
                 btnEmail.setOnClickListener(v -> {
                     if (communityDetail.getMedsos_community() != null &&
@@ -148,6 +148,12 @@ public class DetailCommunityActivity extends AppCompatActivity {
                         goToUrl(communityDetail.getMedsos_community());
                     }
                 });
+
+                FloatingActionButton fabPhone = findViewById(R.id.fab_phone);
+                if (communityDetail.getContact_community() != null)
+                    fabPhone.setVisibility(View.VISIBLE);
+                else fabPhone.setVisibility(View.GONE);
+                fabPhone.setOnClickListener(v -> dialUpNumber(communityDetail.getContact_community()));
 
                 dialog.dismiss();
             }
@@ -158,7 +164,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-       }
+    }
 
     private void getVenue(Community data){
         Call<DetailVenueResponse> request = services.detailVenueGET(Integer.toString(data.getId_venue()));

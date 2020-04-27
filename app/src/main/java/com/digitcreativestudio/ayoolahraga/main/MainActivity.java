@@ -22,6 +22,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    private BottomNavigationView navigation;
     private SearchView searchView;
     private Boolean isLogin;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -94,14 +95,28 @@ public class MainActivity extends AppCompatActivity {
 
         setFragment(new HomeFragment());
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
+        setHomeClicked();
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    void setHomeClicked() {
+        navigation.getMenu().findItem(R.id.navigation_home).setChecked(true);
     }
 
     private void setFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container_layout, fragment, fragment.getClass().getSimpleName())
                 .commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.container_layout);
+        if (f instanceof HomeFragment) {
+            setHomeClicked();
+        }
     }
 
     @Override

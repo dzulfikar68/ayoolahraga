@@ -166,7 +166,6 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getActivity(), "Halo " + welcome, Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
     private void requestListType(){
