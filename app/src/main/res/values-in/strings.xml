@@ -61,9 +61,9 @@
     <string name="register">daftar</string>
     <string name="language">bahasa</string>
     <string name="tutorial">tutorial</string>
-    <string name="dont_have_any_account_click_to_register">JIKA TIDAK PUNYA AKUN, KLIK UNTUK MENDAFTAR</string>
+    <string name="dont_have_any_account_click_to_register">Jika tidak punya akun, klik untuk mendaftar</string>
     <string name="back_to_login">Kembali ke Masuk</string>
-    <string name="ke_tutorial">Ke Tutorial</string>
+    <string name="ke_tutorial">Ke tutorial</string>
     <string name="about_description">Ayoolahraga adalah aplikasi yang berguna untuk mencari lapangan olahraga dan
         komunitas olahraga yang ada di Indonesia, beserta deskripsi, jam operational, info kontak, dan lain-lain.
         Aplikasi ini dilindungi oleh hak cipta milik sportunys.com

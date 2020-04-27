@@ -58,9 +58,11 @@
                 android:id="@+id/btn_login"/>
         <Button android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:text="@string/dont_have_any_account_click_to_register"
-                android:id="@+id/btn_register"/>
+            android:id="@+id/btn_register"
+            android:textSize="15sp" />
         <Button android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:text="@string/ke_tutorial"
+            android:textSize="15sp"
                 android:id="@+id/btn_ke_tutorial"/>
 
     </LinearLayout>

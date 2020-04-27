@@ -61,9 +61,9 @@
     <string name="register">Register</string>
     <string name="language">Language</string>
     <string name="tutorial">Tutorial</string>
-    <string name="dont_have_any_account_click_to_register">DONT HAVE ANY ACCOUNT, CLICK TO REGISTER</string>
+    <string name="dont_have_any_account_click_to_register">Don\'t have any account, click to register</string>
     <string name="back_to_login">Back to Login</string>
-    <string name="ke_tutorial">To Tutorial</string>
+    <string name="ke_tutorial">To tutorial</string>
     <string name="about_description">Ayoolahraga is an application that is useful for finding sports fields and sports
         communities in Indonesia, along with descriptions, operational hours, contact info, and others. This application
         is protected by copyright property of sportunys.com
