@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -157,7 +157,10 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
                     venue = venueDetail;
                     tvTitle.setText(venueDetail.getName_venue());
                     tvDescription.setText(venueDetail.getDescription());
-                    tvAddress.setText(venueDetail.getAddress_venue());
+                    tvAddress.setText(venueDetail.getAddress_venue() + ", " +
+                            venueDetail.getCity_text() + ", " +
+                            venueDetail.getProvinsi_text() + ".")
+                    ;
                     if(!venueDetail.getRating().isEmpty()){
                         llLastComment.setVisibility(View.VISIBLE);
                         Rating rating = venueDetail.getRating().get(0);
@@ -201,11 +204,15 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
                         }
                     });
 
-                    Button btnPhone = findViewById(R.id.btn_telp);
-                    Button btnEmail = findViewById(R.id.btn_email);
+                    ImageView btnPhone = findViewById(R.id.btn_telp);
+                    ImageView btnEmail = findViewById(R.id.btn_email);
+                    ImageView btnFacebook = findViewById(R.id.btn_facebook);
+                    ImageView btnInstagram = findViewById(R.id.btn_instagram);
 
                     btnPhone.setOnClickListener(v -> openWhatsApp(venueDetail.getPhone_user()));
                     btnEmail.setOnClickListener(v -> sendEmail(venueDetail.getEmail_user()));
+                    btnFacebook.setOnClickListener(v -> openBrowser(venueDetail.getLink_facebook()));
+                    btnInstagram.setOnClickListener(v -> openBrowser(venueDetail.getLink_instagram()));
 
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.g_map_detil);
@@ -248,6 +255,12 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(getApplicationContext(), "Aplikasi email tidak terinstall.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void openBrowser(String url) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 
     private void openWhatsApp(String numberPhone){

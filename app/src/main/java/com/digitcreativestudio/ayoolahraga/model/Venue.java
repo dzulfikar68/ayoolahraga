@@ -16,7 +16,13 @@ public class Venue implements Parcelable {
                     longitude,
                     latitude,
                     email_user,
-                    phone_user;
+            phone_user,
+            telp_venue,
+            handphone_venue,
+            link_facebook,
+            link_instagram,
+            city_text,
+            provinsi_text;
     private List<String> facility;
     private List<Operational> operational;
     private ArrayList<Image> image;
@@ -35,6 +41,12 @@ public class Venue implements Parcelable {
         latitude = in.readString();
         email_user = in.readString();
         phone_user = in.readString();
+        telp_venue = in.readString();
+        handphone_venue = in.readString();
+        link_facebook = in.readString();
+        link_instagram = in.readString();
+        city_text = in.readString();
+        provinsi_text = in.readString();
         facility = in.createStringArrayList();
         operational = in.createTypedArrayList(Operational.CREATOR);
         image = in.createTypedArrayList(Image.CREATOR);
@@ -53,6 +65,12 @@ public class Venue implements Parcelable {
         dest.writeString(latitude);
         dest.writeString(email_user);
         dest.writeString(phone_user);
+        dest.writeString(telp_venue);
+        dest.writeString(handphone_venue);
+        dest.writeString(link_facebook);
+        dest.writeString(link_instagram);
+        dest.writeString(city_text);
+        dest.writeString(provinsi_text);
         dest.writeStringList(facility);
         dest.writeTypedList(operational);
         dest.writeTypedList(image);
@@ -146,5 +164,55 @@ public class Venue implements Parcelable {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    //==============================================================
+
+    public String getTelp_venue() {
+        return telp_venue;
+    }
+
+    public void setTelp_venue(String telp_venue) {
+        this.telp_venue = telp_venue;
+    }
+
+    public String getHandphone_venue() {
+        return handphone_venue;
+    }
+
+    public void setHandphone_venue(String handphone_venue) {
+        this.handphone_venue = handphone_venue;
+    }
+
+    public String getLink_facebook() {
+        return link_facebook;
+    }
+
+    public void setLink_facebook(String link_facebook) {
+        this.link_facebook = link_facebook;
+    }
+
+    public String getLink_instagram() {
+        return link_instagram;
+    }
+
+    public void setLink_instagram(String link_instagram) {
+        this.link_instagram = link_instagram;
+    }
+
+    public String getCity_text() {
+        return city_text;
+    }
+
+    public void setCity_text(String city_text) {
+        this.city_text = city_text;
+    }
+
+    public String getProvinsi_text() {
+        return provinsi_text;
+    }
+
+    public void setProvinsi_text(String provinsi_text) {
+        this.provinsi_text = provinsi_text;
     }
 }

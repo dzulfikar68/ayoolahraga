@@ -8,6 +8,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.adapter.VenueAdapter;
@@ -50,6 +52,14 @@ public class SearchVenueActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        adapter = new VenueAdapter(getApplicationContext());
+        adapter.setList(list);
+
+        RecyclerView recyclerView = findViewById(R.id.rv_venue_sport);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setAdapter(adapter);
+
         try {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -62,6 +72,7 @@ public class SearchVenueActivity extends AppCompatActivity {
 
         final ProgressBar pgListVenue = findViewById(R.id.pb_list_venue);
         pgListVenue.setVisibility(View.VISIBLE);
+
         Call<ListVenueResponse> request = services.listVenueGET(null, query);
         request.enqueue(new Callback<ListVenueResponse>() {
             @Override
