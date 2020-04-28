@@ -68,7 +68,7 @@
         communities in Indonesia, along with descriptions, operational hours, contact info, and others. This application
         is protected by copyright property of sportunys.com
     </string>
-    <string name="direct_map">Direct Map</string>
+    <string name="direct_map">To the location</string>
     <string name="about">About</string>
     <string name="submit">Submit</string>
 </resources>

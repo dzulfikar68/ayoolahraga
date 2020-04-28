@@ -68,7 +68,7 @@
         komunitas olahraga yang ada di Indonesia, beserta deskripsi, jam operational, info kontak, dan lain-lain.
         Aplikasi ini dilindungi oleh hak cipta milik sportunys.com
     </string>
-    <string name="direct_map">Peta Langsung</string>
+    <string name="direct_map">Menuju Lokasi</string>
     <string name="about">Tentang</string>
     <string name="submit">Submit</string>
 </resources>
