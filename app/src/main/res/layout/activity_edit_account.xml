@@ -33,7 +33,8 @@
     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
               android:id="@+id/et_name"
               android:hint="@string/name"
-              android:inputType="text"/>
+        android:importantForAutofill="no"
+        android:inputType="text" />
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
               android:text="@string/address_c"
@@ -42,7 +43,8 @@
     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
               android:id="@+id/et_address"
               android:hint="@string/address"
-              android:inputType="text"/>
+        android:importantForAutofill="no"
+        android:inputType="text" />
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
               android:text="@string/phone_c"
@@ -51,7 +53,8 @@
     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
               android:id="@+id/et_phone"
               android:hint="@string/phone"
-              android:inputType="phone"/>
+        android:importantForAutofill="no"
+        android:inputType="phone" />
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
               android:text="@string/hoby_c"
@@ -60,10 +63,11 @@
     <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
               android:id="@+id/et_hoby"
               android:hint="@string/hoby"
-              android:inputType="text"/>
+        android:importantForAutofill="no"
+        android:inputType="text" />
 
     <Button android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="@string/edit_profile"
+        android:text="@string/submit"
             style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/btn_edit_profile"/>
 

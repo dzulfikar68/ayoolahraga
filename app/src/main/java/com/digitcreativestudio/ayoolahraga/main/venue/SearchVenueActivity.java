@@ -1,6 +1,7 @@
 package com.digitcreativestudio.ayoolahraga.main.venue;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.digitcreativestudio.ayoolahraga.adapter.VenueAdapter;
 import com.digitcreativestudio.ayoolahraga.model.Venue;
 import com.digitcreativestudio.ayoolahraga.network.ClientServices;
 import com.digitcreativestudio.ayoolahraga.network.ListVenueResponse;
+import com.digitcreativestudio.ayoolahraga.utils.ItemClickSupport;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -60,6 +62,11 @@ public class SearchVenueActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapter);
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener((recyclerView1, position, view) -> {
+            Intent moveWithObjectIntent = new Intent(getApplicationContext(), DetailVenueActivity.class);
+            moveWithObjectIntent.putExtra(DetailVenueActivity.EXTRA_INTENT, list.get(position));
+            startActivity(moveWithObjectIntent);
+        });
 
         try {
             Retrofit retrofit = new Retrofit.Builder()

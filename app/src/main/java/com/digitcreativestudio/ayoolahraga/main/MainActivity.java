@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        isLogin = SharedPrefManager.getInstance(getApplicationContext()).isLoggedIn();
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.bg_actionbar);
@@ -113,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        isLogin = SharedPrefManager.getInstance(getApplicationContext()).isLoggedIn();
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.container_layout);
         if (f instanceof HomeFragment) {
             setHomeClicked();

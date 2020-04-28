@@ -90,7 +90,7 @@ public class LoginFragment extends Fragment {
             Call<LoginResponse> request = services.loginPOST(params);
             request.enqueue(new Callback<LoginResponse>() {
                 @Override
-                public void onResponse(Call<LoginResponse> call, @NotNull Response<LoginResponse> response) {
+                public void onResponse(@NotNull Call<LoginResponse> call, @NotNull Response<LoginResponse> response) {
                     dataLogin = response.body();
                     SharedPrefManager.getInstance(getActivity())
                             .setLogin(dataLogin.getData());

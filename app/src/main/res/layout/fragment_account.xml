@@ -97,6 +97,7 @@
 
     <Button android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:textSize="15sp"
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:id="@+id/btn_logout"
             android:text="@string/logout"/>

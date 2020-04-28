@@ -12,7 +12,11 @@
 
     <ScrollView android:scrollbars="none" android:nestedScrollingEnabled="true" android:layout_width="match_parent" android:layout_height="match_parent">
 
-        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"

@@ -60,7 +60,6 @@ public class ImageViewDialog {
     public void dialog() {
         Dialog settingsDialog = new Dialog(context);
         Objects.requireNonNull(settingsDialog.getWindow()).requestFeature(Window.FEATURE_NO_TITLE);
-
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
         @SuppressLint("InflateParams") View image_view = inflater.inflate(R.layout.image_view_layout, null);

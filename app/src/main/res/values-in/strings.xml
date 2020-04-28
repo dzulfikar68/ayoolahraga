@@ -52,15 +52,15 @@
     <string name="login">Masuk</string>
     <string name="email_c">Email</string>
     <string name="password_c">Password</string>
-    <string name="password">password</string>
-    <string name="login_l">masuk</string>
+    <string name="password">Password</string>
+    <string name="login_l">Masuk</string>
     <string name="register_c">Daftar</string>
     <string name="password_confirmation_c">Password Konfirmasi</string>
     <string name="birth_c">Tanggal Lahir</string>
     <string name="phone_c">Nomor Telpon</string>
-    <string name="register">daftar</string>
-    <string name="language">bahasa</string>
-    <string name="tutorial">tutorial</string>
+    <string name="register">Daftar</string>
+    <string name="language">Bahasa</string>
+    <string name="tutorial">Tutorial</string>
     <string name="dont_have_any_account_click_to_register">Jika tidak punya akun, klik untuk mendaftar</string>
     <string name="back_to_login">Kembali ke Masuk</string>
     <string name="ke_tutorial">Ke tutorial</string>
@@ -70,4 +70,5 @@
     </string>
     <string name="direct_map">Peta Langsung</string>
     <string name="about">Tentang</string>
+    <string name="submit">Submit</string>
 </resources>

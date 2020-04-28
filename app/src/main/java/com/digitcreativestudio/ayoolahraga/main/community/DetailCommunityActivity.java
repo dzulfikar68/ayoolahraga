@@ -76,7 +76,6 @@ public class DetailCommunityActivity extends AppCompatActivity {
 
         tvTitle = findViewById(R.id.tv_title_community);
         tvDescription = findViewById(R.id.tv_description_community);
-        sliderPhoto = findViewById(R.id.iv_image_community);
         cvVenue = findViewById(R.id.cv_venue);
         llVenue = findViewById(R.id.ll_venue);
 
@@ -128,6 +127,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
                     adapterOperational.notifyDataSetChanged();
                 }
 
+                sliderPhoto = findViewById(R.id.iv_image_community);
                 Slider.init(new GlideImageLoadingService(DetailCommunityActivity.this));
                 if(!communityDetail.getImage().isEmpty()){
                     sliderPhoto.setAdapter(new MainSliderAdapter(communityDetail.getImage()));
@@ -140,6 +140,8 @@ public class DetailCommunityActivity extends AppCompatActivity {
                     ArrayList<Image> images = new ArrayList<Image>();
                     images.add(image);
                     sliderPhoto.setAdapter(new MainSliderAdapter(images));
+                    sliderPhoto.setOnSlideClickListener(position -> new ImageViewDialog(
+                            DetailCommunityActivity.this, images.get(position).getUrl_image()).dialog());
                 }
 
                 Button btnPhone = findViewById(R.id.btn_telp);
@@ -185,7 +187,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
 
                     tvTitleVenue.setText(venueDetail.getName_venue());
                     tvAddressVenue.setText(venueDetail.getAddress_venue());
-                    ratingVenue.setRating(Float.valueOf(venueDetail.getRating_total()));
+                    ratingVenue.setRating(Float.parseFloat(venueDetail.getRating_total()));
                     if(!venueDetail.getImage().isEmpty()){
                         //TODO GLIDE
                         Glide.with(getApplicationContext())

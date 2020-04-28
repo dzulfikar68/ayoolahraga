@@ -4,6 +4,7 @@ package com.digitcreativestudio.ayoolahraga.auth;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +22,9 @@ import androidx.fragment.app.Fragment;
 
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.network.ClientServices;
+import com.digitcreativestudio.ayoolahraga.network.LoginResponse;
 import com.digitcreativestudio.ayoolahraga.network.RegisterResponse;
+import com.digitcreativestudio.ayoolahraga.utils.SharedPrefManager;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -139,9 +142,9 @@ public class RegisterFragment extends Fragment {
 //                            Intent intent = new Intent(getActivity(), SplashActivity.class);
 //                            startActivity(intent);
 //                            Objects.requireNonNull(getActivity()).finish();
+                            doLogin();
                             Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_LONG).show();
                             dialog.dismiss();
-                            Objects.requireNonNull(getActivity()).finish();
                         }
                     }
                 }
@@ -153,6 +156,40 @@ public class RegisterFragment extends Fragment {
                     dialog.dismiss();
                 }
             });
+        });
+    }
+
+    private void doLogin() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ClientServices services = retrofit.create(ClientServices.class);
+
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("email", email);
+        params.put("password", password);
+        params.put("password_confirmation", password);
+
+        Call<LoginResponse> request = services.loginPOST(params);
+        request.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<LoginResponse> call, @NotNull Response<LoginResponse> response) {
+                if (response.body() != null) {
+                    SharedPrefManager.getInstance(getActivity())
+                            .setLogin(response.body().getData());
+                    Objects.requireNonNull(getActivity()).finish();
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<LoginResponse> call, @NotNull Throwable t) {
+                Intent intent = Objects.requireNonNull(getActivity()).getIntent();
+                startActivity(intent);
+            }
         });
     }
 }

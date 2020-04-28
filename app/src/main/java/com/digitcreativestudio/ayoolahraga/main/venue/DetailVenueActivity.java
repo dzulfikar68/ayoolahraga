@@ -95,7 +95,6 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
         tvEmail = findViewById(R.id.tv_email_venue);
         tvPhone = findViewById(R.id.tv_phone_venue);
         cvRating = findViewById(R.id.cv_rating);
-        sliderPhoto = findViewById(R.id.iv_image_venue);
         ratingVenue = findViewById(R.id.rb_rating_venue);
         ratingComment = findViewById(R.id.rb_rating_comment);
         llLastComment = findViewById(R.id.ll_last_comment);
@@ -178,19 +177,20 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
                         listFacility.addAll(venueDetail.getFacility());
                         adapterFacility.notifyDataSetChanged();
                     }
+                    sliderPhoto = findViewById(R.id.iv_image_venue);
+                    Slider.init(new GlideImageLoadingService(DetailVenueActivity.this));
                     if(!venueDetail.getImage().isEmpty()){
-                        Slider.init(new GlideImageLoadingService(DetailVenueActivity.this));
                         sliderPhoto.setAdapter(new MainSliderAdapter(venueDetail.getImage()));
+                        sliderPhoto.setOnSlideClickListener(position -> new ImageViewDialog(
+                                DetailVenueActivity.this, venueDetail.getImage().get(position).getUrl_image()).dialog());
                     } else {
                         Image image = new Image();
                         image.setUrl_image("https://www.capebretonpost.com/media/photologue/photos/cache/CB-23112018-Winter-Sports-SUB_large.jpg");
                         ArrayList<Image> images = new ArrayList<>();
                         images.add(image);
-                        Slider.init(new GlideImageLoadingService(DetailVenueActivity.this));
                         sliderPhoto.setAdapter(new MainSliderAdapter(images));
                         sliderPhoto.setOnSlideClickListener(position -> new ImageViewDialog(
-                                DetailVenueActivity.this, images.get(position).getUrl_image()).dialog()
-                        );
+                                getApplicationContext(), images.get(position).getUrl_image()).dialog());
                     }
                     ratingVenue.setRating(Float.parseFloat(venueDetail.getRating_total()));
                     tvEmail.setText(venueDetail.getEmail_user());
