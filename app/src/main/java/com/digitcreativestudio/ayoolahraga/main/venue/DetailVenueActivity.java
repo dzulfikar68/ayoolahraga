@@ -341,13 +341,13 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
     public void onMapReady(GoogleMap googleMap) {
         try{
             //seattle coordinates
-            LatLng point = new LatLng(Double.valueOf(venue.getLatitude()), Double.valueOf(venue.getLongitude()));
+            LatLng point = new LatLng(Double.parseDouble(venue.getLatitude()), Double.parseDouble(venue.getLongitude()));
             googleMap.addMarker(new MarkerOptions().position(point).title(venue.getAddress_venue()));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17.5f));
             googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             Button btnMap = findViewById(R.id.btn_map);
             btnMap.setOnClickListener(v -> {
-                Uri gmmIntentUri = Uri.parse("geo:" + venue.getLatitude() + "," + venue.getLongitude());
+                Uri gmmIntentUri = Uri.parse("geo:" + venue.getLatitude() + "," + venue.getLongitude() + "(" + venue.getName_venue() + ")");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);
