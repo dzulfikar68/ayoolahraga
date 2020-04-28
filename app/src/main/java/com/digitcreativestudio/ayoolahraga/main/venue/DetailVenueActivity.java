@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -344,7 +345,8 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
             googleMap.addMarker(new MarkerOptions().position(point).title(venue.getAddress_venue()));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17.5f));
             googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-            tvTitle.setOnClickListener(v -> {
+            Button btnMap = findViewById(R.id.btn_map);
+            btnMap.setOnClickListener(v -> {
                 Uri gmmIntentUri = Uri.parse("geo:" + venue.getLatitude() + "," + venue.getLongitude());
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");

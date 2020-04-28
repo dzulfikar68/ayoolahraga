@@ -34,12 +34,6 @@
                         android:id="@+id/iv_image_venue"
                         android:layout_width="match_parent"
                     android:layout_height="200dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_facility_venue"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal" />
                 </ss.com.bannerslider.Slider>
             </androidx.cardview.widget.CardView>
 
@@ -68,6 +62,12 @@
                       android:textColor="@android:color/black"
                       android:textStyle="bold"
                       android:text="@string/facility"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_facility_venue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
 
             <!--            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
             <!--                android:text="-"-->
