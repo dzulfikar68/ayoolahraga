@@ -19,7 +19,7 @@
     <string name="social_media">Sosial Media</string>
     <string name="description_venue">Deskripsi Lapangan</string>
     <string name="facility">Fasilitas</string>
-    <string name="operational">Operasional</string>
+    <string name="operational">Waktu/ Jadwal</string>
     <string name="peringkat_dan_ulasan">Peringkat dan Ulasan</string>
     <string name="name">Nama</string>
     <string name="message">Pesan</string>
@@ -46,9 +46,9 @@
     <string name="hoby_user">Hobi Pengguna</string>
     <string name="logout">Keluar</string>
     <string name="selamat_datang">Selamat Datang</string>
-    <string name="sport_type">Tipe Olahraga</string>
-    <string name="list_community">Daftar Komunitas</string>
-    <string name="blog_news">Berita Blog</string>
+    <string name="sport_type">Tempat Olahraga</string>
+    <string name="list_community">Info Komunitas</string>
+    <string name="blog_news">Tips Kesehatan dan Olahraga</string>
     <string name="login">Masuk</string>
     <string name="email_c">Email</string>
     <string name="password_c">Password</string>

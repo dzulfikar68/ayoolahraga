@@ -19,7 +19,7 @@
     <string name="social_media">Social Media</string>
     <string name="description_venue">Description Venue</string>
     <string name="facility">Facility</string>
-    <string name="operational">Operational</string>
+    <string name="operational">Time/ Schedule</string>
     <string name="peringkat_dan_ulasan">Ratings and Reviews</string>
     <string name="name">Name</string>
     <string name="message">Message</string>
@@ -46,9 +46,9 @@
     <string name="hoby_user">Hobby User</string>
     <string name="logout">Logout</string>
     <string name="selamat_datang">Welcome</string>
-    <string name="sport_type">Sport Type</string>
-    <string name="list_community">List Community</string>
-    <string name="blog_news">Blog News</string>
+    <string name="sport_type">Sports Venue</string>
+    <string name="list_community">Community Info</string>
+    <string name="blog_news">Health and Sports Tips</string>
     <string name="login">Login</string>
     <string name="email_c">Email</string>
     <string name="password_c">Password</string>
