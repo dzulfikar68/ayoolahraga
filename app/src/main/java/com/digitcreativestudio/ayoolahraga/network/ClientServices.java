@@ -1,9 +1,14 @@
 package com.digitcreativestudio.ayoolahraga.network;
 
-import retrofit2.Call;
-import retrofit2.http.*;
-
 import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ClientServices {
 
@@ -59,4 +64,7 @@ public interface ClientServices {
 
     @GET("feeds/posts/default")
     Call<BlogResponse> listBlogGET();
+
+    @GET("blog?call_custom_simple_rss=1")
+    Call<NewBlogResponse> listNewBlogGET();
 }

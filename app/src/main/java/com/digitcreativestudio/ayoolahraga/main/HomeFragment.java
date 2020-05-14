@@ -29,11 +29,10 @@ import com.digitcreativestudio.ayoolahraga.main.community.ListCommunityActivity;
 import com.digitcreativestudio.ayoolahraga.main.venue.ListVenueActivity;
 import com.digitcreativestudio.ayoolahraga.model.Blog;
 import com.digitcreativestudio.ayoolahraga.model.Type;
-import com.digitcreativestudio.ayoolahraga.network.BlogResponse;
 import com.digitcreativestudio.ayoolahraga.network.ClientServices;
+import com.digitcreativestudio.ayoolahraga.network.NewBlogResponse;
 import com.digitcreativestudio.ayoolahraga.network.TypeResponse;
-import com.digitcreativestudio.ayoolahraga.network.xml.Entry;
-import com.digitcreativestudio.ayoolahraga.network.xml.Link;
+import com.digitcreativestudio.ayoolahraga.network.xml.Item;
 import com.digitcreativestudio.ayoolahraga.utils.ItemClickSupport;
 import com.digitcreativestudio.ayoolahraga.utils.SharedPrefManager;
 
@@ -51,7 +50,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 import static com.digitcreativestudio.ayoolahraga.utils.Constant.BASE_URL;
-import static com.digitcreativestudio.ayoolahraga.utils.Constant.GLADY_URL;
+import static com.digitcreativestudio.ayoolahraga.utils.Constant.BLOG_NEW_URL;
 
 
 /**
@@ -64,7 +63,8 @@ public class HomeFragment extends Fragment {
     private BlogAdapter adapterBlog;
     private ArrayList<Type> listType = new ArrayList<>();
     private ArrayList<Type> listCommunity = new ArrayList<>();
-    private ArrayList<Blog> listBlog = new ArrayList<>();
+    //    private ArrayList<Blog> listBlog = new ArrayList<>();
+    private ArrayList<Blog> listNewBlog = new ArrayList<>();
     private TextView tvName;
     private CardView cvName;
 
@@ -101,7 +101,8 @@ public class HomeFragment extends Fragment {
 
         adapterType.setList(listType);
         adapterCommunity.setList(listCommunity);
-        adapterBlog.setList(listBlog);
+//        adapterBlog.setList(listBlog);
+        adapterBlog.setList(listNewBlog);
 
         rvType.setHasFixedSize(true);
         rvCommunity.setHasFixedSize(true);
@@ -141,7 +142,8 @@ public class HomeFragment extends Fragment {
 
         ItemClickSupport.addTo(rvBlog).setOnItemClickListener((recyclerView, position, view12) -> {
             Intent moveWithObjectIntent = new Intent(getActivity(), DetailBlogActivity.class);
-            moveWithObjectIntent.putExtra(DetailBlogActivity.EXTRA_INTENT, listBlog.get(position));
+//            moveWithObjectIntent.putExtra(DetailBlogActivity.EXTRA_INTENT, listBlog.get(position));
+            moveWithObjectIntent.putExtra(DetailBlogActivity.EXTRA_INTENT, listNewBlog.get(position));
             startActivity(moveWithObjectIntent);
         });
     }
@@ -225,32 +227,47 @@ public class HomeFragment extends Fragment {
         pgBlog.setVisibility(View.VISIBLE);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(GLADY_URL)
+                .baseUrl(BLOG_NEW_URL)
                 .addConverterFactory(SimpleXmlConverterFactory.create())
                 .build();
         ClientServices services = retrofit.create(ClientServices.class);
-        Call<BlogResponse> requestBlog = services.listBlogGET();
-        requestBlog.enqueue(new Callback<BlogResponse>() {
+//        Call<BlogResponse> requestBlog = services.listBlogGET();
+        Call<NewBlogResponse> requestBlog = services.listNewBlogGET();
+//        requestBlog.enqueue(new Callback<BlogResponse>() {
+        requestBlog.enqueue(new Callback<NewBlogResponse>() {
             @Override
-            public void onResponse(@NotNull Call<BlogResponse> call, @NotNull Response<BlogResponse> response) {
+//            public void onResponse(@NotNull Call<BlogResponse> call, @NotNull Response<BlogResponse> response) {
+            public void onResponse(@NotNull Call<NewBlogResponse> call, @NotNull Response<NewBlogResponse> response) {
                 if(response.body()!=null){
-                    if(response.body().getEntry()!=null){
-                        List<Entry> entries = response.body().getEntry();
-                        for (int i=0; i<entries.size(); i++){
+                    if (response.body().getChannel().getItemList() != null) {
+//                        List<Entry> entries = response.body().getEntry();
+//                        for (int i=0; i<entries.size(); i++){
+//                            Blog blog = new Blog();
+//                            blog.setId_blog(0);
+//                            blog.setTitle(entries.get(i).getTitle());
+//                            blog.setImage(entries.get(i).getThumbnail().get(0).getUrl());
+//                            for (int j=0; j<entries.get(i).getLink().size(); j++){
+//                                if (entries.get(i).getLink().get(j).getRel().equals(Link.VAL_REL)){
+//                                    blog.setLink(entries.get(i).getLink().get(j).getHref());
+//                                }
+//                            }
+//                            listBlog.add(blog);
+//                        }
+                        List<Item> itemList = response.body().getChannel().getItemList();
+                        for (int i = 0; i < itemList.size(); i++) {
                             Blog blog = new Blog();
                             blog.setId_blog(0);
-                            blog.setTitle(entries.get(i).getTitle());
-                            blog.setImage(entries.get(i).getThumbnail().get(0).getUrl());
-                            for (int j=0; j<entries.get(i).getLink().size(); j++){
-                                if (entries.get(i).getLink().get(j).getRel().equals(Link.VAL_REL)){
-                                    blog.setLink(entries.get(i).getLink().get(j).getHref());
-                                }
-                            }
-                            listBlog.add(blog);
+                            blog.setTitle(itemList.get(i).getTitle());
+                            blog.setImage(itemList.get(i).getEnclosure().getUrl());
+                            blog.setLink(itemList.get(i).getLink());
+                            listNewBlog.add(blog);
                         }
-                        adapterBlog.setList(listBlog);
+
+//                        adapterBlog.setList(listBlog);
+                        adapterBlog.setList(listNewBlog);
                         adapterBlog.notifyDataSetChanged();
-                        if (listBlog.isEmpty())
+//                        if (listBlog.isEmpty())
+                        if (listNewBlog.isEmpty())
                             Objects.requireNonNull(getView()).findViewById(R.id.tv_blog_news).setVisibility(View.GONE);
                     } else {
                         Log.e("BLOG", "NULL");
@@ -263,7 +280,8 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<BlogResponse> call, Throwable t) {
+//            public void onFailure(Call<BlogResponse> call, Throwable t) {
+            public void onFailure(@NotNull Call<NewBlogResponse> call, Throwable t) {
                 Log.e("ERROR BLOG", Objects.requireNonNull(t.getMessage()));
                 pgBlog.setVisibility(View.GONE);
             }
