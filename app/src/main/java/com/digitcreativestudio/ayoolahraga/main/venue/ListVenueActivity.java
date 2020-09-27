@@ -3,6 +3,7 @@ package com.digitcreativestudio.ayoolahraga.main.venue;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -68,12 +69,15 @@ public class ListVenueActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         final Type type;
-        if(bundle != null){
+        if(bundle != null) {
             type = bundle.getParcelable(ListVenueActivity.EXTRA_INTENT);
             assert type != null;
-            requestList(String.valueOf(type.getId()),"");
 
-            if(getSupportActionBar() != null){
+            Log.e("@AYOOLAHRAGA: x_id_ven=", String.valueOf(type.getId()));
+            requestList(String.valueOf(type.getId()), "");
+//            requestList(String.valueOf(type.getId()),null);
+
+            if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle(type.getTitle());
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
@@ -88,23 +92,33 @@ public class ListVenueActivity extends AppCompatActivity {
         });
     }
 
-    private void requestList(String type, String query){
+    private void requestList(String type, String query) {
         final ProgressBar pgListVenue = findViewById(R.id.pb_list_venue);
         pgListVenue.setVisibility(View.VISIBLE);
         findViewById(R.id.tv_not_found).setVisibility(View.GONE);
 
         Call<ListVenueResponse> request = services.listVenueGET(type, query);
+//        Call<ListVenueResponse> request;
+//        if (query == null) {
+//            request = services.listVenueGET(type);
+//        } else {
+//            request = services.listVenueGET(type, query);
+//        }
         request.enqueue(new Callback<ListVenueResponse>() {
             @Override
             public void onResponse(@NotNull Call<ListVenueResponse> call, @NotNull Response<ListVenueResponse> response) {
                 list.clear();
                 assert response.body() != null;
                 list = response.body().getData();
-                if(list.isEmpty()) Toast.makeText(getApplicationContext(), "List Kosong/ Pencarian tidak ada", Toast.LENGTH_LONG).show();
+                if (list.isEmpty())
+                    Toast.makeText(getApplicationContext(), "List Kosong/ Pencarian tidak ada", Toast.LENGTH_LONG).show();
                 adapter.setList(list);
                 adapter.notifyDataSetChanged();
                 pgListVenue.setVisibility(View.GONE);
                 if (list.isEmpty()) findViewById(R.id.tv_not_found).setVisibility(View.VISIBLE);
+                for (int i = 0; i < list.size(); i++) {
+                    Log.e("@AYOOLAHRAGA: xxx=", String.valueOf(list.get(i).getId_venue()));
+                }
             }
 
             @SuppressLint("SetTextI18n")
@@ -114,7 +128,6 @@ public class ListVenueActivity extends AppCompatActivity {
                 TextView error = findViewById(R.id.tv_not_found);
                 error.setVisibility(View.VISIBLE);
                 error.setText("maaf, sedang terjadi gangguan");
-
             }
         });
     }

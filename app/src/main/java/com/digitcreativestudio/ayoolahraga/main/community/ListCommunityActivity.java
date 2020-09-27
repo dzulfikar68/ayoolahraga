@@ -3,6 +3,7 @@ package com.digitcreativestudio.ayoolahraga.main.community;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -68,12 +69,14 @@ public class ListCommunityActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         final Type type;
-        if(bundle != null){
+        if(bundle != null) {
             type = bundle.getParcelable(ListCommunityActivity.EXTRA_INTENT);
             assert type != null;
-            requestList(String.valueOf(type.getId()),"");
 
-            if(getSupportActionBar() != null){
+            Log.e("@AYOOLAHRAGA: x_id_com=", String.valueOf(type.getId()));
+            requestList(String.valueOf(type.getId()), "");
+
+            if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle(type.getTitle());
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
@@ -105,6 +108,7 @@ public class ListCommunityActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 pgListCommunity.setVisibility(View.GONE);
                 if (list.isEmpty()) findViewById(R.id.tv_not_found).setVisibility(View.VISIBLE);
+                Log.e("@AYOOLAHRAGA: list_com=", String.valueOf(list));
             }
 
             @SuppressLint("SetTextI18n")

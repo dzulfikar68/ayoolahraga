@@ -25,6 +25,9 @@ public interface ClientServices {
     @GET("api/venue")
     Call<ListVenueResponse> listVenueGET(@Query("type") String type, @Query("query") String query);
 
+    @GET("api/venue")
+    Call<ListVenueResponse> listVenueGET(@Query("type") String type);
+
     @GET("api/community")
     Call<ListCommunityResponse> listCommunityGET(@Query("type") String type, @Query("query") String query);
 

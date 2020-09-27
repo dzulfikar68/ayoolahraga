@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.digitcreativestudio.ayoolahraga.R;
-import com.digitcreativestudio.ayoolahraga.main.setting.AboutActivity;
-import com.digitcreativestudio.ayoolahraga.main.setting.TutorialActivity;
+import com.digitcreativestudio.ayoolahraga.main.blog.DetailBlogActivity;
+import com.digitcreativestudio.ayoolahraga.model.Blog;
 
 
 /**
@@ -48,13 +48,23 @@ public class SettingFragment extends Fragment {
 
         Button btnTutorial = view.findViewById(R.id.btn_tutorial);
         btnTutorial.setOnClickListener(v -> {
-            Intent mIntent = new Intent(getActivity(), TutorialActivity.class);
+//            Intent mIntent = new Intent(getActivity(), TutorialActivity.class);
+            Blog blog = new Blog();
+//            blog.setLink("http://tutorial.ayoolahraga.id/");
+            blog.setLink("https://google.com/");
+            Intent mIntent = new Intent(getActivity(), DetailBlogActivity.class);
+            mIntent.putExtra(DetailBlogActivity.EXTRA_INTENT, blog);
             startActivity(mIntent);
         });
 
         Button btnAbout = view.findViewById(R.id.btn_about);
         btnAbout.setOnClickListener(v -> {
-            Intent mIntent = new Intent(getActivity(), AboutActivity.class);
+//            Intent mIntent = new Intent(getActivity(), AboutActivity.class);
+            Blog blog = new Blog();
+//            blog.setLink("http://about.ayoolahraga.id/");
+            blog.setLink("https://facebook.com/");
+            Intent mIntent = new Intent(getActivity(), DetailBlogActivity.class);
+            mIntent.putExtra(DetailBlogActivity.EXTRA_INTENT, blog);
             startActivity(mIntent);
         });
     }

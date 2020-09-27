@@ -71,4 +71,6 @@
     <string name="direct_map">Menuju Lokasi</string>
     <string name="about">Tentang</string>
     <string name="submit">Submit</string>
+    <string name="open_street">Open Street</string>
+    <string name="none"> </string>
 </resources>

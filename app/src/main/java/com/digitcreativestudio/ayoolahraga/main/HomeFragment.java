@@ -131,12 +131,14 @@ public class HomeFragment extends Fragment {
         ItemClickSupport.addTo(rvType).setOnItemClickListener((recyclerView, position, view13) -> {
             Intent moveWithObjectIntent = new Intent(getActivity(), ListVenueActivity.class);
             moveWithObjectIntent.putExtra(ListVenueActivity.EXTRA_INTENT, listType.get(position));
+            Log.e("@AYOOLAHRAGA: id_ven=", String.valueOf(listType.get(position).getId()));
             startActivity(moveWithObjectIntent);
         });
 
         ItemClickSupport.addTo(rvCommunity).setOnItemClickListener((recyclerView, position, view1) -> {
             Intent moveWithObjectIntent = new Intent(getActivity(), ListCommunityActivity.class);
             moveWithObjectIntent.putExtra(ListCommunityActivity.EXTRA_INTENT, listCommunity.get(position));
+            Log.e("@AYOOLAHRAGA: id_com=", String.valueOf(listCommunity.get(position).getId()));
             startActivity(moveWithObjectIntent);
         });
 

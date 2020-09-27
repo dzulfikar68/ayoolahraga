@@ -20,8 +20,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.adapter.FacilityAdapter;
@@ -100,7 +100,8 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
         ratingComment = findViewById(R.id.rb_rating_comment);
         llLastComment = findViewById(R.id.ll_last_comment);
 
-        LinearLayoutManager layoutManagerHorizontal = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+//        LinearLayoutManager layoutManagerHorizontal = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        StaggeredGridLayoutManager layoutManagerHorizontal = new StaggeredGridLayoutManager(3, LinearLayout.HORIZONTAL);
         adapterFacility = new FacilityAdapter();
         adapterFacility.setList(listFacility);
         RecyclerView rvFacility = findViewById(R.id.rv_facility_venue);
@@ -339,15 +340,24 @@ public class DetailVenueActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        try{
+        try {
             //seattle coordinates
             LatLng point = new LatLng(Double.parseDouble(venue.getLatitude()), Double.parseDouble(venue.getLongitude()));
+            Log.e("@AYOOLAHRAGA: lat=", venue.getLatitude());
+            Log.e("@AYOOLAHRAGA: long=", venue.getLongitude());
             googleMap.addMarker(new MarkerOptions().position(point).title(venue.getAddress_venue()));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17.5f));
             googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             Button btnMap = findViewById(R.id.btn_map);
             btnMap.setOnClickListener(v -> {
-                Uri gmmIntentUri = Uri.parse("geo:" + venue.getLatitude() + "," + venue.getLongitude() + "(" + venue.getName_venue() + ")");
+                Uri gmmIntentUri = Uri.parse("geo:" + venue.getLatitude() + "," + venue.getLongitude() + "?q=" + Uri.encode(venue.getName_venue()));
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+            });
+            Button btnDirect = findViewById(R.id.btn_direct);
+            btnDirect.setOnClickListener(v -> {
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + venue.getName_venue().trim().replace(' ', '+'));
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);

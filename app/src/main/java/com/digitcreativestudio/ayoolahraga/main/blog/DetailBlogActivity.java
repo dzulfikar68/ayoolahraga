@@ -25,7 +25,7 @@ public class DetailBlogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_blog);
 
         if(getSupportActionBar() != null){
-            getSupportActionBar().setTitle("Blog View");
+            getSupportActionBar().setTitle(R.string.none);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
