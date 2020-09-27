@@ -95,6 +95,7 @@ public class ListCommunityActivity extends AppCompatActivity {
         final ProgressBar pgListCommunity = findViewById(R.id.pb_list_community);
         pgListCommunity.setVisibility(View.VISIBLE);
         findViewById(R.id.tv_not_found).setVisibility(View.GONE);
+        findViewById(R.id.tv_comming_soon).setVisibility(View.GONE);
 
         Call<ListCommunityResponse> request = services.listCommunityGET(type, query);
         request.enqueue(new Callback<ListCommunityResponse>() {
@@ -103,11 +104,15 @@ public class ListCommunityActivity extends AppCompatActivity {
                 list.clear();
                 assert response.body() != null;
                 list = response.body().getData();
-                if(list.isEmpty()) Toast.makeText(getApplicationContext(), "List Kosong/ Pencarian tidak ada", Toast.LENGTH_LONG).show();
+                if (list.isEmpty())
+                    Toast.makeText(getApplicationContext(), "List Kosong/ Pencarian tidak ada", Toast.LENGTH_LONG).show();
                 adapter.setList(list);
                 adapter.notifyDataSetChanged();
                 pgListCommunity.setVisibility(View.GONE);
-                if (list.isEmpty()) findViewById(R.id.tv_not_found).setVisibility(View.VISIBLE);
+                if (list.isEmpty()) {
+                    findViewById(R.id.tv_not_found).setVisibility(View.VISIBLE);
+                    findViewById(R.id.tv_comming_soon).setVisibility(View.VISIBLE);
+                }
                 Log.e("@AYOOLAHRAGA: list_com=", String.valueOf(list));
             }
 
@@ -116,7 +121,9 @@ public class ListCommunityActivity extends AppCompatActivity {
             public void onFailure(@NotNull Call<ListCommunityResponse> call, @NotNull Throwable t) {
                 pgListCommunity.setVisibility(View.GONE);
                 TextView error = findViewById(R.id.tv_not_found);
+                TextView error2 = findViewById(R.id.tv_comming_soon);
                 error.setVisibility(View.VISIBLE);
+                error2.setVisibility(View.VISIBLE);
                 error.setText("maaf, sedang terjadi gangguan");
 
             }

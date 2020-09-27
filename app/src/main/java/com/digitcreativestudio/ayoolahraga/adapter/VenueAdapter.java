@@ -1,14 +1,17 @@
 package com.digitcreativestudio.ayoolahraga.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.digitcreativestudio.ayoolahraga.R;
@@ -37,9 +40,10 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ItemViewHold
     @Override
     public VenueAdapter.ItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_venue, viewGroup, false);
-        return new VenueAdapter.ItemViewHolder(view);
+        return new ItemViewHolder(view);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onBindViewHolder(@NonNull VenueAdapter.ItemViewHolder movieViewHolder, int i) {
         if(getList().get(i).getPhoto()!=null){
@@ -54,6 +58,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ItemViewHold
 
         movieViewHolder.title.setText(getList().get(i).getName_venue());
         movieViewHolder.address.setText(getList().get(i).getAddress_venue());
+        movieViewHolder.city.setText(getList().get(i).getCity_text());
     }
 
     @Override
@@ -61,15 +66,16 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ItemViewHold
         return getList().size();
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView title, address;
+        TextView title, address, city;
 
         ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.iv_image_venue);
             title = itemView.findViewById(R.id.tv_title_venue);
             address = itemView.findViewById(R.id.tv_address_venue);
+            city = itemView.findViewById(R.id.tv_city_venue);
         }
     }
 }

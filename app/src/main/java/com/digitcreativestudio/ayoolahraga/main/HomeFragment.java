@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.adapter.BlogAdapter;
 import com.digitcreativestudio.ayoolahraga.adapter.TypeAdapter;
+import com.digitcreativestudio.ayoolahraga.auth.AuthActivity;
 import com.digitcreativestudio.ayoolahraga.main.blog.DetailBlogActivity;
 import com.digitcreativestudio.ayoolahraga.main.community.ListCommunityActivity;
 import com.digitcreativestudio.ayoolahraga.main.venue.ListVenueActivity;
@@ -65,8 +67,9 @@ public class HomeFragment extends Fragment {
     private ArrayList<Type> listCommunity = new ArrayList<>();
     //    private ArrayList<Blog> listBlog = new ArrayList<>();
     private ArrayList<Blog> listNewBlog = new ArrayList<>();
-    private TextView tvName;
+    private TextView tvName, btnLogin;
     private CardView cvName;
+    private LinearLayout llLogin;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -90,6 +93,12 @@ public class HomeFragment extends Fragment {
 
         tvName = view.findViewById(R.id.tv_name_user);
         cvName = view.findViewById(R.id.cv_name);
+        llLogin = view.findViewById(R.id.ll_login);
+        btnLogin = view.findViewById(R.id.tv_login_user);
+        btnLogin.setOnClickListener((v) -> {
+            Intent intent = new Intent(getActivity(), AuthActivity.class);
+            startActivity(intent);
+        });
 
         RecyclerView rvType = view.findViewById(R.id.rv_type_sport);
         RecyclerView rvCommunity = view.findViewById(R.id.rv_list_community);
@@ -159,6 +168,12 @@ public class HomeFragment extends Fragment {
             tvName.setVisibility(View.GONE);
         } else {
             tvName.setText(welcome);
+        }
+
+        if (isLogin) {
+            llLogin.setVisibility(View.GONE);
+        } else {
+            llLogin.setVisibility(View.VISIBLE);
         }
 
         requestListType();

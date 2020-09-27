@@ -2,12 +2,16 @@ package com.digitcreativestudio.ayoolahraga.main;
 
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import com.digitcreativestudio.ayoolahraga.R;
 import com.digitcreativestudio.ayoolahraga.main.blog.DetailBlogActivity;
 import com.digitcreativestudio.ayoolahraga.model.Blog;
+
+import java.util.Objects;
 
 
 /**
@@ -66,6 +72,58 @@ public class SettingFragment extends Fragment {
             Intent mIntent = new Intent(getActivity(), DetailBlogActivity.class);
             mIntent.putExtra(DetailBlogActivity.EXTRA_INTENT, blog);
             startActivity(mIntent);
+        });
+
+        Button btnSaran = view.findViewById(R.id.btn_saran);
+        btnSaran.setOnClickListener(v -> {
+            Blog blog = new Blog();
+            blog.setLink("http://saran.ayoolahraga.id/");
+//            blog.setLink("https://microsoft.com/");
+            Intent mIntent = new Intent(getActivity(), DetailBlogActivity.class);
+            mIntent.putExtra(DetailBlogActivity.EXTRA_INTENT, blog);
+            startActivity(mIntent);
+        });
+
+        Button btnEmail = view.findViewById(R.id.btn_email);
+        btnEmail.setOnClickListener(v -> {
+            String[] TO = {"gladysukmaperdana@email.com"};
+            String[] CC = {""};
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+            emailIntent.setData(Uri.parse("mailto:"));
+            emailIntent.setType("text/plain");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+            emailIntent.putExtra(Intent.EXTRA_CC, CC);
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Pertanyaan");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "halo Ayoolahraga, ");
+
+            try {
+                startActivity(Intent.createChooser(emailIntent, "Kirim Email lewat Ayoolahraga"));
+//                getActivity().finish();
+                Log.e("Finished sending", "");
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(getActivity(), "Aplikasi email tidak terinstall.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button btnWa = view.findViewById(R.id.btn_wa);
+        btnWa.setOnClickListener(v -> {
+            PackageManager pm = Objects.requireNonNull(getActivity()).getPackageManager();
+            try {
+                pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_VIEW);
+                String url = "https://api.whatsapp.com/send?phone=+62" +
+                        "085786018422" +
+                        "&text=" +
+                        "halo Ayoolahraga, ";
+                sendIntent.setData(Uri.parse(url));
+
+                startActivity(sendIntent);
+            } catch (PackageManager.NameNotFoundException e) {
+                Toast.makeText(getActivity(), "Aplikasi whatsapp tidak ditemukan.", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

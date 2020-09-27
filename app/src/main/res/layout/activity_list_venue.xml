@@ -35,7 +35,11 @@
             tools:ignore="ContentDescription" />
     </LinearLayout>
 
-    <ProgressBar android:id="@+id/pb_list_venue" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <ProgressBar
+        android:id="@+id/pb_list_venue"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_venue_sport"
@@ -43,6 +47,26 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="20dp" />
-    <TextView android:layout_marginTop="200dp" android:visibility="gone" android:id="@+id/tv_not_found" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/data_tidak_tersedia" android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/tv_not_found"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:gravity="center"
+        android:text="@string/data_tidak_tersedia"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_comming_soon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Coming Soon"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25sp"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </LinearLayout>

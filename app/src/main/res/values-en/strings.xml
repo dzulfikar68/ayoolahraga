@@ -37,7 +37,7 @@
     <string name="hoby">Hobby</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="search">Search</string>
-    <string name="data_tidak_tersedia">Data Not Available</string>
+    <string name="data_tidak_tersedia">Data Not Yet Available</string>
     <string name="name_user">Name User</string>
     <string name="phone_user">Phone User</string>
     <string name="email">Email</string>
@@ -73,4 +73,9 @@
     <string name="submit">Submit</string>
     <string name="open_street">Open street</string>
     <string name="none"> </string>
+    <string name="silahkan_masuk_atau_daftar">Please Login or Register</string>
+    <string name="disini">here</string>
+    <string name="masukan_dan_saran">Feedback and Suggestions</string>
+    <string name="email_2">Email</string>
+    <string name="whatsapp">Whatsapp</string>
 </resources>

@@ -96,6 +96,7 @@ public class ListVenueActivity extends AppCompatActivity {
         final ProgressBar pgListVenue = findViewById(R.id.pb_list_venue);
         pgListVenue.setVisibility(View.VISIBLE);
         findViewById(R.id.tv_not_found).setVisibility(View.GONE);
+        findViewById(R.id.tv_comming_soon).setVisibility(View.GONE);
 
         Call<ListVenueResponse> request = services.listVenueGET(type, query);
 //        Call<ListVenueResponse> request;
@@ -115,7 +116,10 @@ public class ListVenueActivity extends AppCompatActivity {
                 adapter.setList(list);
                 adapter.notifyDataSetChanged();
                 pgListVenue.setVisibility(View.GONE);
-                if (list.isEmpty()) findViewById(R.id.tv_not_found).setVisibility(View.VISIBLE);
+                if (list.isEmpty()) {
+                    findViewById(R.id.tv_not_found).setVisibility(View.VISIBLE);
+                    findViewById(R.id.tv_comming_soon).setVisibility(View.VISIBLE);
+                }
                 for (int i = 0; i < list.size(); i++) {
                     Log.e("@AYOOLAHRAGA: xxx=", String.valueOf(list.get(i).getId_venue()));
                 }
@@ -126,7 +130,9 @@ public class ListVenueActivity extends AppCompatActivity {
             public void onFailure(@NotNull Call<ListVenueResponse> call, @NotNull Throwable t) {
                 pgListVenue.setVisibility(View.GONE);
                 TextView error = findViewById(R.id.tv_not_found);
+                TextView error2 = findViewById(R.id.tv_comming_soon);
                 error.setVisibility(View.VISIBLE);
+                error2.setVisibility(View.VISIBLE);
                 error.setText("maaf, sedang terjadi gangguan");
             }
         });
