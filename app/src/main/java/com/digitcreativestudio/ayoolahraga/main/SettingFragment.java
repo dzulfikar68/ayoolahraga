@@ -56,7 +56,7 @@ public class SettingFragment extends Fragment {
         btnTutorial.setOnClickListener(v -> {
 //            Intent mIntent = new Intent(getActivity(), TutorialActivity.class);
             Blog blog = new Blog();
-            blog.setLink("http://tutorial.ayoolahraga.id/");
+            blog.setLink("https://ayoolahraga.id/tutorial-aplikasi/");
 //            blog.setLink("https://google.com/");
             Intent mIntent = new Intent(getActivity(), DetailBlogActivity.class);
             mIntent.putExtra(DetailBlogActivity.EXTRA_INTENT, blog);
@@ -67,7 +67,7 @@ public class SettingFragment extends Fragment {
         btnAbout.setOnClickListener(v -> {
 //            Intent mIntent = new Intent(getActivity(), AboutActivity.class);
             Blog blog = new Blog();
-            blog.setLink("http://about.ayoolahraga.id/");
+            blog.setLink("https://about.ayoolahraga.id/");
 //            blog.setLink("https://facebook.com/");
             Intent mIntent = new Intent(getActivity(), DetailBlogActivity.class);
             mIntent.putExtra(DetailBlogActivity.EXTRA_INTENT, blog);
@@ -77,7 +77,7 @@ public class SettingFragment extends Fragment {
         Button btnSaran = view.findViewById(R.id.btn_saran);
         btnSaran.setOnClickListener(v -> {
             Blog blog = new Blog();
-            blog.setLink("http://saran.ayoolahraga.id/");
+            blog.setLink("https://ayoolahraga.id/feedback-aplikasi/");
 //            blog.setLink("https://microsoft.com/");
             Intent mIntent = new Intent(getActivity(), DetailBlogActivity.class);
             mIntent.putExtra(DetailBlogActivity.EXTRA_INTENT, blog);

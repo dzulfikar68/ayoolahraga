@@ -14,7 +14,8 @@
         android:roundIcon="@drawable/ayoolahraga_home"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        android:networkSecurityConfig="@xml/security_config"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
         <activity
             android:name=".main.venue.SearchVenueActivity"
             android:configChanges="orientation"
