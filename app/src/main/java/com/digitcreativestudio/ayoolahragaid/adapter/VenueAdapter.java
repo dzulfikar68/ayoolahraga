@@ -58,7 +58,9 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ItemViewHold
 
         movieViewHolder.title.setText(getList().get(i).getName_venue());
         movieViewHolder.address.setText(getList().get(i).getAddress_venue());
-        movieViewHolder.city.setText(getList().get(i).getCity_text());
+        String city = getList().get(i).getCity_text();
+        if (city == null || city.isEmpty()) movieViewHolder.city.setVisibility(View.GONE);
+        else movieViewHolder.city.setText(getList().get(i).getCity_text());
     }
 
     @Override

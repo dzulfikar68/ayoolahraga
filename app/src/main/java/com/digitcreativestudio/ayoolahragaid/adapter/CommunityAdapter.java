@@ -52,6 +52,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.Item
 
         movieViewHolder.title.setText(getList().get(i).getName_community());
         movieViewHolder.address.setText(getList().get(i).getDescription_community());
+        movieViewHolder.city.setVisibility(View.GONE);
     }
 
     @Override
@@ -61,13 +62,14 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.Item
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView title, address;
+        TextView title, address, city;
 
         ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.iv_image_venue);
             title = itemView.findViewById(R.id.tv_title_venue);
             address = itemView.findViewById(R.id.tv_address_venue);
+            city = itemView.findViewById(R.id.tv_city_venue);
         }
     }
 }

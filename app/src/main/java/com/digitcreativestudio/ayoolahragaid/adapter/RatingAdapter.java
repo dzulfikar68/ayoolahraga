@@ -36,7 +36,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.ItemViewHo
     public void onBindViewHolder(@NonNull ItemViewHolder movieViewHolder, int i) {
         movieViewHolder.name.setText(getList().get(i).getName_user());
         movieViewHolder.message.setText(getList().get(i).getMessage());
-        movieViewHolder.rating.setRating(Float.valueOf(getList().get(i).getScore()));
+        movieViewHolder.rating.setRating(Float.parseFloat(getList().get(i).getScore()));
     }
 
     @Override
