@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.digitcreativestudio.ayoolahraga">
+    package="com.digitcreativestudio.ayoolahragaid">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -17,27 +17,27 @@
         android:networkSecurityConfig="@xml/security_config"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
         <activity
-            android:name=".main.venue.SearchVenueActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.main.venue.SearchVenueActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.setting.TutorialActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.main.setting.TutorialActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.setting.AboutActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.main.setting.AboutActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.community.ListCommunityActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.main.community.ListCommunityActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.community.DetailCommunityActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.main.community.DetailCommunityActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.blog.DetailBlogActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.main.blog.DetailBlogActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
 
@@ -46,27 +46,27 @@
             android:value="AIzaSyBXdjWdgobZJlrnA6FWs7oa6geTEHy1weU" />
 
         <activity
-            android:name=".main.venue.RatingActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.main.venue.RatingActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.account.EditAccountActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.main.account.EditAccountActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.venue.ListVenueActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.main.venue.ListVenueActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.venue.DetailVenueActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.main.venue.DetailVenueActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".auth.AuthActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.auth.AuthActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".main.MainActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.main.MainActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
@@ -79,11 +79,11 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".BasicActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.BasicActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashActivity"
+            android:name="com.digitcreativestudio.ayoolahragaid.SplashActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar">
