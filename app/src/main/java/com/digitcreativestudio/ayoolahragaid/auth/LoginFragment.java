@@ -16,7 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.digitcreativestudio.ayoolahragaid.R;
-import com.digitcreativestudio.ayoolahragaid.main.setting.TutorialActivity;
+import com.digitcreativestudio.ayoolahragaid.main.blog.DetailBlogActivity;
+import com.digitcreativestudio.ayoolahragaid.model.Blog;
 import com.digitcreativestudio.ayoolahragaid.network.ClientServices;
 import com.digitcreativestudio.ayoolahragaid.network.LoginResponse;
 import com.digitcreativestudio.ayoolahragaid.utils.SharedPrefManager;
@@ -65,7 +66,14 @@ public class LoginFragment extends Fragment {
         Button btnKeTutorial = view.findViewById(R.id.btn_ke_tutorial);
 
         btnKeTutorial.setOnClickListener(v -> {
-            Intent mIntent = new Intent(getActivity(), TutorialActivity.class);
+//            Intent mIntent = new Intent(getActivity(), TutorialActivity.class);
+//            startActivity(mIntent);
+            //            Intent mIntent = new Intent(getActivity(), TutorialActivity.class);
+            Blog blog = new Blog();
+            blog.setLink("https://ayoolahraga.id/tutorial-aplikasi/");
+//            blog.setLink("https://google.com/");
+            Intent mIntent = new Intent(getActivity(), DetailBlogActivity.class);
+            mIntent.putExtra(DetailBlogActivity.EXTRA_INTENT, blog);
             startActivity(mIntent);
         });
 
